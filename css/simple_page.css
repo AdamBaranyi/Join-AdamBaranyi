@@ -1,0 +1,37 @@
+.simple-page-content {
+    padding: 80px;
+    max-width: 1000px;
+}
+
+.simple-page-content h1 {
+    font-size: 61px;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.simple-page-content h2 {
+    font-size: 27px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+.simple-page-content p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.simple-page-content ul {
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+
+@media(max-width: 850px) {
+    .simple-page-content {
+        padding: 40px;
+    }
+    .simple-page-content h1 {
+        font-size: 40px;
+    }
+}

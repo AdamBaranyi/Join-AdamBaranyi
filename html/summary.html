@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Summary</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/summary.css">
+    <script src="../js/storage.js"></script>
+    <script src="../script.js"></script>
+    <script src="../js/summary.js"></script>
+</head>
+<body onload="init(); initSummary()">
+
+    <!-- Include Sidebar -->
+    <!-- Include Sidebar -->
+    <div w3-include-html="../assets/templates/sidebar.html"></div>
+    
+    <!-- Include Header -->
+    <div w3-include-html="../assets/templates/header.html"></div>
+    <!-- Include Mobile Menu -->
+    <div w3-include-html="../assets/templates/mobile_menu.html"></div>
+
+    <div class="content-container">
+        
+        <div class="summary-header-mobile">
+            <!-- Mobile Header if needed, or part of main-header adaptation -->
+        </div>
+
+        <div class="summary-title-section">
+            <h1>Join 360</h1>
+            <div class="vertical-line"></div>
+            <span class="subtitle">Key Metrics at a Glance</span>
+        </div>
+
+        <div class="dashboard-content">
+            
+            <div class="metrics-column">
+                
+                <!-- Row 1 -->
+                <div class="metrics-row">
+                    <div class="metric-card todo-card" onclick="goToBoard()">
+                        <div class="icon-circle icon-edit">
+                             <div class="todo-icon">✎</div>
+                        </div>
+                        <div class="metric-text">
+                            <span class="number">0</span>
+                            <span class="label">TO-DO</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card done-card" onclick="goToBoard()">
+                        <div class="icon-circle icon-check">
+                             <div class="done-icon">✓</div>
+                        </div>
+                        <div class="metric-text">
+                            <span class="number">0</span>
+                            <span class="label">Done</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 (Urgent) -->
+                <div class="metrics-row">
+                    <div class="metric-card urgent-card" onclick="goToBoard()">
+                        <div class="urgent-left">
+                            <div class="icon-circle icon-urgent">
+                                <img src="../assets/img/urgent-icon.png" alt="Urgent"> <!-- This exists -->
+                            </div>
+                            <div class="metric-text">
+                                <span class="number">0</span>
+                                <span class="label">Urgent</span>
+                            </div>
+                        </div>
+                        <div class="vertical-line-small"></div>
+                        <div class="urgent-right">
+                            <span class="date-bold">-</span>
+                            <span class="label-small">Upcoming deadline</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <div class="metrics-row">
+                    <div class="metric-card-small" onclick="goToBoard()">
+                        <span class="number">0</span>
+                        <span class="label">Tasks in<br>Board</span>
+                    </div>
+                    <div class="metric-card-small" onclick="goToBoard()">
+                        <span class="number">0</span>
+                        <span class="label">Tasks in<br>Progress</span>
+                    </div>
+                    <div class="metric-card-small" onclick="goToBoard()">
+                        <span class="number">0</span>
+                        <span class="label">Awaiting<br>Feedback</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Greeting Column -->
+            <div class="greeting-column">
+                <span class="greeting-time">Good afternoon,</span>
+                <span class="greeting-name">Guest</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

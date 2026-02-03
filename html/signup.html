@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Sign up</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg">
+    <script src="../script.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/register.js"></script>
+    <style>
+        .back-arrow {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            cursor: pointer;
+            width: 30px;
+            transition: transform 0.1s;
+        }
+        .back-arrow:hover {
+            transform: scale(1.1);
+        }
+        .signup-header {
+            text-align: center;
+            width: 100%;
+            margin-top: 10px; /* Space for arrow if needed, but array is absolute */
+        }
+    </style>
+</head>
+<body onload="init()" class="no-anim">
+
+    <div class="login-container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="../assets/img/logo.svg" alt="Join Logo" class="logo-anim">
+        </div>
+
+        <!-- Signup Card -->
+        <div class="login-card" style="position: relative;">
+            
+            <a href="../index.html">
+                <img src="../assets/img/arrow_left_line_hover.svg" alt="Back" class="back-arrow">
+            </a>
+
+            <div class="signup-header">
+                <h1>Sign up</h1>
+                <div class="separator-blue" style="margin: 0 auto 30px auto;"></div>
+            </div>
+
+            <form onsubmit="handleSignup(event)">
+                <div class="input-group">
+                    <input type="text" id="signupName" placeholder="Name" required>
+                    <img src="../assets/img/person.svg" alt="User">
+                </div>
+                <div class="input-group">
+                    <input type="email" id="signupEmail" placeholder="Email" required>
+                    <img src="../assets/img/mail.svg" alt="Email">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signupPassword" placeholder="Password" required>
+                    <img src="../assets/img/lock.svg" alt="Lock">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="signupConfirm" placeholder="Confirm Password" required>
+                    <img src="../assets/img/lock.svg" alt="Lock">
+                </div>
+
+                <div class="login-actions" style="justify-content: center;">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacyAccept" required>
+                        <label for="privacyAccept" style="font-size: 16px;">I accept the <a href="privacy_policy.html" style="color: var(--color-secondary); text-decoration: none;">Privacy policy</a></label>
+                    </div>
+                </div>
+
+                <div class="login-buttons" style="justify-content: center;">
+                    <button type="submit" class="btn-dark" style="padding: 15px 40px; width: auto; white-space: nowrap;" disabled>Sign up</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="legal-links">
+            <a href="privacy_policy.html">Privacy Policy</a>
+            <a href="legal_notice.html">Legal notice</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

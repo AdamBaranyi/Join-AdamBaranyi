@@ -1,0 +1,309 @@
+/* Main Content Wrapper */
+.content-container {
+    /* Padding inherited from style.css (80px) */
+    max-width: 1400px;
+}
+
+/* Header Section */
+.summary-title-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px; /* Reduced from 60px */
+}
+
+.summary-title-section h1 {
+    font-size: 61px;
+    font-weight: 700;
+    margin-bottom: 0; 
+}
+
+.summary-title-section .subtitle {
+    font-size: 27px;
+    color: var(--color-primary);
+    font-weight: 400;
+    margin-left: 5px;
+}
+
+.vertical-line {
+    width: 3px;
+    height: 60px;
+    background-color: var(--color-secondary);
+    border-radius: 2px;
+}
+
+/* Dashboard Layout */
+.dashboard-content {
+    display: flex;
+    gap: 50px; /* Reduced from 80px */
+}
+
+.metrics-column {
+    flex: 1.4;
+    display: flex;
+    flex-direction: column;
+    gap: 35px; /* Vertical gap between rows */
+    min-width: 560px; /* Default for desktop */
+}
+
+@media (max-width: 1250px) {
+    .metrics-column {
+        min-width: auto; /* Allow shrinking on smaller screens */
+    }
+}
+
+.greeting-column {
+    flex: 1; /* Increased from 0.8 to 1 to take full available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Center horizontally */
+    text-align: center;
+}
+
+.greeting-time {
+    font-size: 47px;
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.greeting-name {
+    font-size: 64px;
+    color: var(--color-secondary);
+    font-weight: 700;
+}
+
+/* Metrics Rows */
+.metrics-row {
+    display: flex;
+    gap: 35px; /* Horizontal gap between cards */
+}
+
+/* General Metric Card */
+.metric-card {
+    background: var(--color-white);
+    border-radius: 30px;
+    padding: 35px 40px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    flex: 1;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.05); 
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s; 
+    min-width: 250px; /* Increased width significantly */
+    min-height: 170px; /* Kept original height */
+}
+
+.metric-card:hover {
+    transform: scale(1.03); 
+}
+
+/* Icons within Cards */
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px; 
+    color: white;
+}
+
+.icon-edit {
+    background-color: #2A3647; 
+}
+.icon-check {
+    background-color: #2A3647; 
+}
+
+/* Text Stack inside Card */
+.metric-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.metric-text .number {
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.metric-text .label {
+    font-size: 18px; 
+    color: var(--color-primary);
+    text-align: center;
+}
+
+/* Urgent Card Specifics */
+.urgent-card {
+    background-color: var(--color-white);
+    justify-content: space-between; 
+    padding: 30px 60px;
+}
+
+.icon-urgent {
+    background-color: #FF3D00; 
+}
+
+.urgent-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.vertical-line-small {
+    width: 2px;
+    height: 100%;
+    min-height: 70px;
+    background-color: #D1D1D1;
+}
+
+.urgent-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    gap: 5px;
+}
+
+.date-bold {
+    font-size: 23px;
+    font-weight: 700;
+    color: #2A3647;
+}
+
+.label-small {
+    font-size: 16px;
+    color: #2A3647;
+}
+
+/* Small Cards Row */
+.metric-card-small {
+    flex: 1;
+    background: var(--color-white);
+    border-radius: 45px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    min-width: 200px; /* Increased width */
+    min-height: 170px; 
+}
+
+.metric-card-small:hover {
+    transform: scale(1.03); 
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.metric-card-small:hover .label {
+    color: white;
+}
+
+.metric-card-small .number {
+    font-size: 64px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.metric-card-small .label {
+    font-size: 19px;
+    color: var(--color-primary);
+    line-height: 1.2;
+}
+
+
+/* HOVER EFFECTS MATCHING REFERENCE/USER INTENT */
+
+/* Hover: To-Do becomes Dark Blue */
+.todo-card:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+.todo-card:hover .label {
+    color: white;
+}
+/* If circle is dark by default, make it transparent or lighter on hover? 
+   Usually in these designs: Card turns dark, Text white. Circle might stay specific color.
+   Let's infer: If background is dark blue, circle needs to contrast. 
+   Making circle white looks good. */
+.todo-card:hover .icon-circle.icon-edit {
+    background-color: white;
+    color: var(--color-primary);
+}
+
+
+/* Hover: Done becomes Dark Blue */
+.done-card:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+.done-card:hover .label {
+    color: white;
+}
+.done-card:hover .icon-circle.icon-check {
+    background-color: white;
+    color: var(--color-primary);
+}
+
+
+/* Urgent Card Hover */
+.urgent-card:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.urgent-card:hover .label, 
+.urgent-card:hover .date-bold, 
+.urgent-card:hover .label-small,
+.urgent-card:hover .number {
+    color: white !important;
+}
+
+.urgent-card:hover .vertical-line-small {
+    background-color: white;
+}
+
+
+/* Responsive */
+@media (max-width: 1250px) {
+    .dashboard-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .greeting-column {
+        align-items: center; 
+        margin-top: 40px;
+        text-align: center;
+    }
+    .metrics-column {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 700px) {
+    .metrics-row {
+        flex-direction: column;
+    }
+    .metric-card, .metric-card-small {
+        width: 100%;
+    }
+    .summary-title-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .vertical-line {
+        display: none; /* Hide line on very small screens */
+    }
+}

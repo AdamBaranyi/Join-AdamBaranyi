@@ -1,0 +1,425 @@
+/* Main Column Layout */
+h1 {
+    font-size: 64px; /* Slightly reduced */
+    font-weight: 700;
+    margin-bottom: 30px; /* Reduced space */
+}
+
+.add-task-layout {
+    display: flex;
+    gap: 80px; /* Keep or increase slightly, separator handles visual split */
+    margin-top: 40px; /* Slight increase */
+    align-items: flex-start; /* Ensure columns don't stretch weirdly */
+}
+
+.add-task-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* Restoring more vertical space */
+}
+
+/* Form Groups */
+.form-group label {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #2A3647;
+}
+
+.required {
+    color: #FF8190;
+}
+
+/* Inputs & Textarea */
+input, textarea, select {
+    font-size: 20px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    padding: 12px 21px; 
+    background-color: white;
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+    height: 120px; /* Restore height */
+    font-family: inherit;
+    outline: none;
+}
+
+/* Priority Buttons Styles */
+.prio-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.prio-btn {
+    flex: 1;
+    background-color: white;
+    box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 16px 10px; /* Restore padding */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 20px; 
+    transition: all 0.1s;
+}
+
+.prio-btn:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+}
+
+.prio-btn.urgent.selected { background-color: #FF3D00; color: white; }
+.prio-btn.medium.selected { background-color: #FFA800; color: white; }
+.prio-btn.low.selected { background-color: #7AE229; color: white; }
+
+.prio-btn img { height: 14px; transition: filter 0.1s; }
+
+/* Filter logic for icons */
+.prio-btn.selected img {
+    filter: brightness(0) invert(1);
+}
+
+#prio-medium img {
+    filter: brightness(0); /* Unselected black */
+}
+
+#prio-medium.selected {
+    background-color: #FFA800; /* Medium Orange */
+    color: white;
+}
+
+#prio-medium.selected img {
+    filter: none;
+}
+
+/* Subtasks */
+.subtask-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.subtask-input-container input {
+    width: 100%;
+    padding-right: 90px;
+}
+
+.subtask-icons {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+
+.icon-plus {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+}
+.icon-plus:hover {
+    background-color: #ECECEC;
+    border-radius: 50%;
+}
+
+.icon-actions {
+    display: flex;
+    align-items: center;
+}
+
+.icon-action {
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+.icon-action:hover {
+    background-color: #ECECEC;
+    border-radius: 50%;
+}
+
+.separator-small-vertical {
+    width: 1px;
+    height: 24px;
+    background-color: #D1D1D1;
+    margin: 0 4px;
+}
+
+.subtask-list {
+    list-style: none;
+    margin-top: 8px;
+    max-height: 120px;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.subtask-item {
+    font-size: 16px;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    transition: background 0.1s;
+    cursor: pointer;
+}
+
+.subtask-item:hover {
+    background-color: #F0F0F0;
+}
+
+.subtask-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    color: black;
+}
+
+/* Bullet Point */
+.subtask-text::before {
+    content: "•";
+    font-size: 24px; /* Larger bullet */
+    line-height: 16px;
+}
+
+.subtask-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.1s;
+    min-width: 60px; /* Prevent layout shift */
+    justify-content: flex-end;
+}
+
+.subtask-item:hover .subtask-actions {
+    opacity: 1; /* Show on hover */
+}
+
+/* Edit Mode Layout */
+.subtask-edit-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #29ABE2;
+    padding-bottom: 4px;
+    background: white; /* overlay on list item bg */
+}
+
+.subtask-edit-input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 16px !important;
+    outline: none !important;
+    width: 100%;
+}
+
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 80px; /* Increased back closer to original but balanced */
+}
+
+.required-hint {
+    font-size: 18px;
+    color: #2A3647;
+}
+
+.required-hint .required {
+    color: var(--color-error); /* Explicitly red */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 25px;
+}
+
+/* Mobile */
+@media(max-width: 950px) {
+    .add-task-layout {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .vertical-separator {
+        display: none;
+    }
+    .content-container {
+        padding: 40px 20px; /* Reduced mobile padding */
+    }
+    .form-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+
+/* Medium priority button styling */
+#prio-medium {
+    background-color: var(--color-white);
+}
+
+#prio-medium.selected {
+    background-color: #FFA800; /* Medium Orange */
+    color: white;
+}
+
+/* Separator */
+.vertical-separator {
+    width: 1px;
+    background-color: #D1D1D1;
+    margin: 0 40px;
+    display: block;
+    height: 420px; /* Approximate height of form content */
+}
+
+/* Description Resize */
+textarea {
+    resize: vertical; /* Enable resize */
+}
+
+/* Custom Select Arrow Styling */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232A3647' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 16px;
+    cursor: pointer;
+}
+
+/* Custom Dropdown Styling */
+.custom-select-container {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select-trigger {
+    background-color: white;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    padding: 12px 21px;
+    font-size: 19px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.1s;
+}
+
+.custom-select-trigger.active {
+    border-color: #29ABE2; /* Blue focus border */
+}
+
+.dropdown-arrow {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s;
+}
+
+.custom-select-trigger.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.custom-select-trigger:hover .dropdown-arrow path {
+    stroke: #29ABE2; /* Optional hover effect */
+}
+
+.custom-select-options {
+    position: absolute;
+    top: 55px; /* Below trigger */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+/* Custom Scrollbar for Dropdown */
+.custom-select-options::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-select-options::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-select-options::-webkit-scrollbar-thumb {
+    background: #A8A8A8;
+    border-radius: 3px;
+}
+.custom-select-options::-webkit-scrollbar-thumb:hover {
+    background: #2A3647;
+}
+
+.contact-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 20px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+    border-radius: 10px;
+    margin: 2px 10px;
+}
+
+.contact-option:hover {
+    background-color: #D2E3FF; /* Light hover blue */
+}
+
+.contact-option.selected {
+    background-color: #2A3647;
+    color: white;
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-badge-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border: 1px solid white;
+}
+
+/* Selected Contacts Badges */
+.selected-contacts {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.contact-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #2A3647; /* Dark Blue */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px; 
+    font-weight: 400;
+    border: 2px solid white;
+}

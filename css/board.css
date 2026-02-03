@@ -1,0 +1,358 @@
+/* Board-specific Layout */
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.board-header h1 {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.board-controls {
+    display: flex;
+    gap: 35px;
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 13px 21px;
+    width: 312px;
+    font-size: 20px;
+    border: 1px solid #A8A8A8;
+    background-color: var(--color-white);
+    border-radius: 10px;
+}
+
+.search-icon-container {
+    position: absolute;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    border-left: 1px solid #D1D1D1;
+    height: 30px;
+}
+
+.search-icon-container img {
+    cursor: pointer;
+    width: 20px;
+}
+
+.btn-add-task {
+    font-size: 21px;
+    padding: 13px 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+
+/* Columns */
+.board-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 26px;
+    width: 100%;
+}
+
+.board-column {
+    flex: 1;
+    min-width: 250px;
+}
+
+.column-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #42526E;
+    font-weight: 700;
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.plus-button {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plus-button img {
+    width: 100%;
+    height: 100%;
+    /* filter to match color if needed, or if image is already colored */
+}
+
+.plus-button:hover img {
+    /* Hover effect if applicable */
+    filter: brightness(0.8);
+}
+
+.plus-button:hover {
+    color: var(--color-secondary);
+    border-color: var(--color-secondary);
+}
+
+.task-list {
+    min-height: 100px;
+    /* Fit to viewport: 100vh - (Header 96px + Padding 160px + Board Header ~140px) */
+    max-height: calc(100vh - 400px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-right: 8px; /* For scrollbar space */
+}
+
+/* Custom Scrollbar for task list */
+.task-list::-webkit-scrollbar {
+    width: 6px;
+}
+.task-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+.task-list::-webkit-scrollbar-thumb {
+    background: #A8A8A8;
+    border-radius: 4px;
+}
+.task-list::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
+/* Empty State / Drag Highlight */
+.drag-area-highlight {
+    background-color: rgba(0, 0, 0, 0.05);
+    border: 1px dashed #A8A8A8;
+    border-radius: 10px;
+}
+
+.no-tasks {
+    background-color: #E7E7E7;
+    border: 1px dashed #A8A8A8;
+    color: #A8A8A8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    height: 48px;
+}
+
+/* Task Card Style */
+.task-card {
+    background-color: var(--color-white);
+    padding: 16px;
+    border-radius: 24px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-category {
+    padding: 4px 16px;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    width: fit-content;
+}
+
+.cat-user-story { background-color: #0038FF; }
+.cat-technical-task { background-color: #1FD7C1; }
+
+.task-title {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--color-primary);
+    word-break: break-word; /* Prevent overflow */
+}
+
+.task-description {
+    color: #A8A8A8;
+    font-size: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word; /* Prevent overflow */
+}
+
+.task-progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.progress-bar-container {
+    background-color: #F4F4F4;
+    border-radius: 8px;
+    height: 8px;
+    width: 128px;
+}
+
+.progress-bar-fill {
+    background-color: #4589FF;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.task-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.assigned-users {
+    display: flex;
+}
+
+.user-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: 1px solid white;
+    margin-left: -8px; /* Stack effect */
+}
+.user-badge:first-child { margin-left: 0; }
+
+.priority-icon img {
+    width: 17px;
+}
+
+/* Mobile Responsiveness */
+/* Mobile Responsiveness */
+@media (max-width: 1000px) { /* Reduced from 1200px */
+    .board-columns {
+        flex-direction: column;
+    }
+    .task-list {
+        min-height: 100px;
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 20px; /* Scrollbar space */
+    }
+    .task-card {
+        min-width: 250px;
+    }
+    
+    /* Board Header Mobile */
+    .board-header {
+        flex-direction: column;
+        align-items: stretch; /* Change to stretch to fill width */
+        gap: 20px;
+    }
+    
+    .board-controls {
+        flex-direction: row; /* Keep row for title + button logic if we restructure html, OR keep distinct row logic */
+        /* Wait, the HTML structure is: H1 ... Controls(Search, Button). 
+           We need H1 and Button on Row 1, Search on Row 2. 
+           But H1 is outside Controls. 
+           
+           Solution:
+           Flex Box can order items or absolute position. 
+           Or we change the HTML structure to be more flexible? 
+           Actually, simpler: use Grid or absolute.
+           
+           Let's use a specific style for mobile to make H1 and Button align.
+        */
+        flex-wrap: wrap; 
+        justify-content: space-between;
+        width: 100%;
+        display: flex;
+    }
+
+    /* We need to Target the H1 and the Button to be on the top row, and search bar below.
+       Currently:
+       <div class="board-header">
+           <h1>Board</h1>
+           <div class="board-controls">
+                <div class="search-bar">...</div>
+                <button>Add Task</button>
+           </div>
+       </div>
+       
+       On Mobile:
+       Row 1: H1 (Left) -- Button (Right)
+       Row 2: Search Bar 
+       
+       We can pull the Button out of flow or use Display Grid on the Parent (.board-header) if we flatten, but we can't easily flatten without JS or HTML change.
+       
+       Alternative:
+       .board-header { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; }
+       h1 { grid-column: 1 / 2; grid-row: 1; }
+       .board-controls { display: contents; } 
+           .search-bar { grid-row: 2; grid-column: 1 / -1; width: 100%; }
+           .btn-add-task { grid-row: 1; grid-column: 2; }
+       
+       Let's try display: contents on .board-controls (wrapper removal visually).
+    */
+
+    .board-header {
+        display: grid;
+        grid-template-columns: 1fr auto; /* Title + Button */
+        grid-template-rows: auto auto; /* Title/Btn + Search */
+        gap: 20px;
+        align-items: center;
+    }
+
+    .board-controls {
+        display: contents; /* Remove wrapper visual box */
+    }
+
+    .board-header h1 {
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 0; /* Remove existing margin */
+        font-size: 47px;
+    }
+
+    .btn-add-task {
+        grid-column: 2;
+        grid-row: 1;
+        width: 40px; /* Square button */
+        height: 40px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 10px;
+        min-width: unset; /* Remove min-width from global */
+        font-size: 0; /* Hide text "Add Task" */
+    }
+    
+    .btn-add-task svg {
+        margin: 0; /* Center SVG */
+    }
+
+    .search-bar {
+        grid-row: 2;
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+    
+/* ... Existing mobile styles ... */
+    
+    .search-bar input {
+        width: 100%;
+    }
+}
+
+
+/* Modal styles moved to board_modal.css */

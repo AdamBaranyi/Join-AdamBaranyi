@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join - Board</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/img/logo.svg">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/board.css">
+    <link rel="stylesheet" href="../css/add_task.css">
+    <link rel="stylesheet" href="../css/board_modal.css">
+    <script src="../script.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/add_task.js"></script>
+    <script src="../js/board.js"></script>
+</head>
+<body onload="initBoard()">
+
+    <!-- Include Sidebar -->
+    <div w3-include-html="../assets/templates/sidebar.html"></div>
+    
+    <!-- Include Header -->
+    <div w3-include-html="../assets/templates/header.html"></div>
+    <!-- Include Mobile Menu -->
+    <div w3-include-html="../assets/templates/mobile_menu.html"></div>
+
+    <div class="content-container">
+        
+        <div class="board-header">
+            <h1>Board</h1>
+            
+            <div class="board-controls">
+                <div class="search-bar">
+                    <input type="text" placeholder="Find Task" onkeyup="filterTasks()">
+                    <div class="search-icon-container">
+                        <img src="../assets/img/search.svg" alt="Search">
+                    </div>
+                </div>
+                <button class="btn-dark btn-add-task" onclick="openAddTaskModal()">
+                    Add Task 
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 8V16M8 12H16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="board-columns">
+            
+            <!-- To Do -->
+            <div class="board-column">
+                <div class="column-header">
+                    <span>To do</span>
+                    <div class="plus-button" onclick="openAddTaskModal('todo')">
+                        <img src="../assets/img/plus button.png" alt="Add">
+                    </div>
+                </div>
+                <div class="task-list" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Tasks will be rendered here -->
+                </div>
+            </div>
+
+            <!-- In Progress -->
+            <div class="board-column">
+                <div class="column-header">
+                    <span>In progress</span>
+                    <div class="plus-button" onclick="openAddTaskModal('inprogress')">
+                        <img src="../assets/img/plus button.png" alt="Add">
+                    </div>
+                </div>
+                <div class="task-list" id="inprogress" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Tasks will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Await Feedback -->
+            <div class="board-column">
+                <div class="column-header">
+                    <span>Await feedback</span>
+                    <div class="plus-button" onclick="openAddTaskModal('awaitfeedback')">
+                        <img src="../assets/img/plus button.png" alt="Add">
+                    </div>
+                </div>
+                <div class="task-list" id="awaitfeedback" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Tasks will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Done -->
+            <div class="board-column">
+                <div class="column-header">
+                    <span>Done</span>
+                    <div class="plus-button" onclick="openAddTaskModal('done')">
+                        <img src="../assets/img/plus button.png" alt="Add">
+                    </div>
+                </div>
+                <div class="task-list" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Tasks will be rendered here -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Task Detail Modal Overlay -->
+    <div id="task-modal-overlay" class="d-none" onclick="closeTaskModal()">
+        <div id="task-modal" onclick="event.stopPropagation()">
+            <!-- Modal content will be injected by JS -->
+            <div class="modal-header-row">
+                <div class="modal-category" id="modal-category">Category</div>
+                <div class="close-modal" onclick="closeTaskModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="modal-title" id="modal-title">Title</div>
+            <div class="modal-description" id="modal-description">Description</div>
+            
+            <div class="modal-details">
+                <div class="modal-detail-row">
+                    <span class="detail-label">Due date:</span>
+                    <span class="detail-value" id="modal-date">Date</span>
+                </div>
+                <div class="modal-detail-row">
+                    <span class="detail-label">Priority:</span>
+                    <div class="detail-value" id="modal-priority">
+                        <span id="modal-priority-text">Urgent</span>
+                        <img id="modal-priority-icon" src="" alt="Priority">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-section-title">Assigned To:</div>
+            <div class="modal-assigned-list" id="modal-assigned-list">
+                <!-- Assigned Users List -->
+            </div>
+            
+            <div class="modal-section-title">Subtasks</div>
+            <div class="modal-subtasks" id="modal-subtasks">
+                <!-- Subtasks Checkboxes -->
+            </div>
+            
+            <div class="modal-actions">
+                <div class="action-btn" onclick="editTask()">
+                    <img src="../assets/img/edit (1).png" alt="Edit"> Edit
+                </div>
+                <div class="action-btn" onclick="deleteTask()">
+                    <img src="../assets/img/delete.svg" alt="Delete"> Delete
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task Modal Overlay (Slide-in) -->
+    <div id="add-task-modal-overlay" class="d-none" onclick="closeAddTaskModal()">
+        <div id="add-task-slide-in" onclick="event.stopPropagation()">
+            <div class="modal-header-row">
+                <h1>Add Task</h1>
+                <div class="close-modal" onclick="closeAddTaskModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6L18 18" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+
+            <form onsubmit="addTask(event)" novalidate>
+                <div class="add-task-layout">
+                    <!-- Same structure as add_task.html but adjusted for modal width if needed -->
+                    <div class="add-task-column">
+                        <div class="form-group">
+                            <label>Title<span class="required">*</span></label>
+                            <input type="text" id="taskTitle" placeholder="Enter a title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="taskDescription" placeholder="Enter a Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Due date<span class="required">*</span></label>
+                            <input type="date" id="taskDueDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category<span class="required">*</span></label>
+                            <select id="taskCategory" required>
+                                <option value="" disabled selected>Select task category</option>
+                                <option value="User Story">User Story</option>
+                                <option value="Technical Task">Technical Task</option>
+                            </select>
+                        </div>
+                         <div class="form-group">
+                            <label>Assigned to</label>
+                            <div class="custom-select-container" id="assignedToContainer">
+                                <div class="custom-select-trigger" onclick="toggleContactDropdown()">
+                                    <span>Select contact to assign</span>
+                                    <svg class="dropdown-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 10L12 15L17 10" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div id="contactDropdown" class="custom-select-options d-none"></div>
+                            </div>
+                            <div id="selectedContactsContainer" class="selected-contacts"></div>
+                        </div>
+                    </div>
+
+                    <div class="vertical-separator"></div>
+
+                    <div class="add-task-column">
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <div class="prio-buttons">
+                                <div class="prio-btn urgent" onclick="setPrio('urgent')" id="prio-urgent">
+                                    Urgent <img src="../assets/img/urgent-priority-board.svg" alt="Urgent">
+                                </div>
+                                <div class="prio-btn medium selected" onclick="setPrio('medium')" id="prio-medium">
+                                    Medium <img src="../assets/img/priority_medium.svg" alt="Medium">
+                                </div>
+                                <div class="prio-btn low" onclick="setPrio('low')" id="prio-low">
+                                    Low <img src="../assets/img/low-priority-board.svg" alt="Low">
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                        <div class="form-group">
+                            <label>Subtasks</label>
+                            <div class="subtask-input-container">
+                                <input type="text" id="subtaskInput" placeholder="Add new subtask" onfocus="activateSubtaskInput()" onblur="deactivateSubtaskInput()" onkeydown="handleSubtaskKey(event)">
+                                
+                                <div class="subtask-icons">
+                                    <div class="icon-plus" id="subtaskIconPlus" onclick="activateSubtaskInput()">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 8V16M8 12H16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="icon-actions d-none" id="subtaskIconActions" onmousedown="event.preventDefault()">
+                                        <div class="icon-action" onclick="clearSubtaskInput()">
+                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                 <path d="M18 6L6 18M6 6L18 18" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             </svg>
+                                        </div>
+                                        <div class="separator-small-vertical"></div>
+                                        <div class="icon-action" onclick="addSubtask()">
+                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                 <path d="M5 12L9 16L19 6" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul id="subtaskList" class="subtask-list"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <span class="required-hint"><span class="required">*</span> This field is required</span>
+                    <div class="action-buttons">
+                        <button type="button" class="btn-light" onclick="clearForm()">
+                            Clear 
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.0007 12.0001L17.2435 17.2429M6.75781 17.2429L12.0007 12.0001M12.0007 12.0001L6.75781 6.75726M12.0007 12.0001L17.2435 6.75726" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <button type="submit" class="btn-dark">
+                            Create Task 
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12L9 16L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

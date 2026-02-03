@@ -1,0 +1,335 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background-color: var(--color-bg);
+}
+
+.top-signup-link {
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    display: flex;
+    align-items: center;
+    gap: 35px; /* Increased gap */
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.top-signup-link span {
+    color: #000000;
+}
+
+.login-card {
+    background-color: var(--color-white);
+    padding: 35px 40px; /* Adjusted padding */
+    border-radius: 30px;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 652px;
+    max-width: 90%;
+}
+
+.login-card h1 {
+    font-size: 61px; /* Bigger font as per design */
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.separator-blue {
+    width: 150px;
+    height: 3px;
+    background-color: var(--color-secondary);
+    margin-bottom: 45px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 422px; /* Fixed width from reference */
+}
+
+/* Icons */
+.input-group img, .password-toggle {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+}
+
+.input-group img {
+    right: 21px;
+    pointer-events: none;
+}
+
+/* Eye Toggle */
+.password-toggle {
+    right: 60px; 
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 13px 50px 13px 21px;
+    font-size: 21px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+}
+
+/* Extra padding for password field to fit 2 icons */
+#loginPassword {
+    padding-right: 95px;
+}
+
+/* Center form elements */
+.login-card form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    /* Since parent form is align-items: center, this will be centered */
+}
+
+.login-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.login-buttons .btn-dark {
+    width: 111px;
+    padding: 15px 0; /* Adjust padding for fixed width */
+}
+
+.login-buttons .btn-light {
+    width: 180px;
+    padding: 15px 0; /* Adjust padding for fixed width */
+}
+
+.btn-dark {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    /* padding: 15px 25px; removed generic padding here if overriding, but keeping safe */
+    padding: 15px 25px; 
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.btn-dark:hover {
+    background-color: var(--color-secondary);
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
+}
+
+.btn-dark:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-light {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.btn-light:hover {
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+.btn-primary-small {
+    background-color: var(--color-primary); /* #2a3647 */
+    color: var(--color-white);
+    padding: 11px 22px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    border: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary-small:hover {
+    background-color: var(--color-secondary); /* #29abe2 */
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
+}
+
+/* Legal Links Bottom */
+.legal-links {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Reference has slightly wider gap */
+}
+
+.legal-links a {
+    text-decoration: none;
+    color: #A8A8A8;
+    font-size: 16px;
+}
+
+.legal-links a:hover {
+    color: var(--color-secondary);
+}
+
+/* Animations (Basic) */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-card {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Responsive */
+@media(max-width: 850px) {
+    .top-signup-link {
+        display: none; /* Might need to check screenshot logic for mobile, usually buttons move */
+    }
+    .login-card {
+        padding: 20px;
+        width: 90%;
+    }
+}
+
+/* Logo Animation */
+.logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    /* Optional: background white if we want to obscure 'body' background loading, but 'opacity:0' on elements works too */
+}
+
+.logo-anim {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Start centered */
+    width: 250px; /* Big start size */
+    animation: moveLogo 1s ease-in-out forwards;
+    animation-delay: 0.5s; /* Stay in center for a bit */
+}
+
+@keyframes moveLogo {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 250px;
+    }
+    100% {
+        top: 60px; /* More spacing */
+        left: 60px;
+        transform: translate(0, 0);
+        width: 100px; /* Final bigger size */
+    }
+}
+
+/* Hide login elements initially and fade in */
+.top-signup-link, .login-card, .legal-links {
+    opacity: 0;
+    animation: fadeInContent 1s ease-in-out forwards;
+    animation-delay: 1.2s; /* Wait for logo to move */
+}
+
+@keyframes fadeInContent {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media(max-width: 850px) {
+    .logo-anim {
+        width: 150px; /* Mobile start size */
+    }
+    
+    @keyframes moveLogo {
+        0% {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+        }
+        100% {
+            top: 30px;
+            left: 30px;
+            transform: translate(0, 0);
+            width: 80px; /* Mobile end size */
+        }
+    }
+}
+/* --- NO ANIMATION OVERRIDES (for signup.html) --- */
+.no-anim .logo-container {
+    position: absolute;
+    z-index: 10;
+    height: auto;
+    width: auto;
+    top: 60px;
+    left: 60px;
+}
+
+.no-anim .logo-anim {
+    animation: none;
+    width: 100px;
+    position: static;
+    transform: none;
+}
+
+.no-anim .login-card, 
+.no-anim .legal-links,
+.no-anim .top-signup-link {
+    animation: none;
+    opacity: 1;
+}
+
+@media(max-width: 850px) {
+    .no-anim .logo-container {
+        top: 30px;
+        left: 30px;
+    }
+    .no-anim .logo-anim {
+        width: 80px;
+    }
+}
