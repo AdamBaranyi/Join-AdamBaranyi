@@ -48,8 +48,10 @@ body.show {
 
 /* Main Content Wrapper */
 .content-container {
-    padding: 80px 120px 80px 120px; /* Standardized padding */
-    max-width: 75%; /* Reduced to 3/4 as requested */
+    display: flex; /* Enable flex for auto-height children */
+    flex-direction: column;
+    padding: 48px 80px 48px 80px; /* Reduced vertical padding */
+    max-width: 75%; 
     width: 100%;
     height: calc(100vh - 96px); 
     overflow-y: auto;

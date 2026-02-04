@@ -4,11 +4,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 32px; /* Reduced from 60px */
 }
 
 .board-header h1 {
-    font-size: 61px;
+    font-size: 48px; /* Reduced from 61px */
     font-weight: 700;
 }
 
@@ -63,11 +63,29 @@
     justify-content: space-between;
     gap: 26px;
     width: 100%;
+    flex: 1; /* Automatically fill remaining space */
+    min-height: 0; /* Allow shrinking if needed */
+}
+
+/* ... existing board-column ... */
+
+.task-list {
+    flex: 1; /* Match parent height */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 24px;
+    border: 2px solid transparent; /* Prevent layout shift for highlight */
+    border-radius: 20px; /* Match highlight radius */
+    transition: border-color 0.1s, background-color 0.1s;
+    /* Removed min-height hard limit */
 }
 
 .board-column {
     flex: 1;
     min-width: 250px;
+    display: flex;
+    flex-direction: column; /* Ensure header and list stack */
 }
 
 .column-header {
@@ -106,14 +124,14 @@
 }
 
 .task-list {
-    min-height: 100px;
-    /* Fit to viewport: 100vh - (Header 96px + Padding 160px + Board Header ~140px) */
-    max-height: calc(100vh - 400px);
-    overflow-y: auto;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding-right: 8px; /* For scrollbar space */
+    padding-bottom: 24px;
+    border: 2px solid transparent; /* Prevent layout shift for highlight */
+    border-radius: 20px; /* Match highlight radius */
+    transition: border-color 0.1s, background-color 0.1s;
 }
 
 /* Custom Scrollbar for task list */
@@ -160,6 +178,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: relative; /* Added recently */
+    overflow: hidden; /* Fix unwanted scrollbar */
 }
 
 .task-category {
@@ -245,10 +265,8 @@
         flex-direction: column;
     }
     .task-list {
-        min-height: 100px;
-        flex-direction: row;
-        overflow-x: auto;
-        padding-bottom: 20px; /* Scrollbar space */
+        min-height: 150px;
+        /* Revert to vertical stack for best mobile responsiveness */
     }
     .task-card {
         min-width: 250px;
@@ -356,3 +374,80 @@
 
 
 /* Modal styles moved to board_modal.css */
+/* --- Drag & Drop Visuals --- */
+.task-card.dragging {
+    transform: rotate(5deg);
+    opacity: 0.7;
+    cursor: grabbing;
+}
+
+/* Ensure highlight class overrides background */
+.drag-area-highlight {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-color: #A8A8A8 !important; /* Change color only */
+    border-style: dashed !important;
+}
+
+
+/* --- Mobile Move Menu --- */
+.mobile-move-btn {
+    display: none; /* Desktop default */
+}
+
+/* Mobile Menu Dropdown */
+.move-menu {
+    position: absolute;
+    top: 50px;
+    right: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    z-index: 100;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+}
+
+.move-menu-item {
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #2A3647;
+    transition: background 0.1s;
+}
+
+.move-menu-item:hover {
+    background-color: #ECECEC;
+    color: var(--color-secondary);
+}
+
+.task-card {
+    position: relative; /* For absolute menu positioning */
+}
+
+/* Show mobile menu button only on smaller screens (< 1000px matches columns break) */
+@media (max-width: 1000px) {
+    .mobile-move-btn {
+        display: flex;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 5; /* Above card content */
+    }
+    
+    .mobile-move-btn:hover {
+        background-color: #EEE;
+        border-radius: 50%;
+    }
+
+    /* Adjust content to not overlap with button */
+    .task-title {
+        padding-right: 30px; 
+    }
+}

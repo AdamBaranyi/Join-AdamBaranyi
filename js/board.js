@@ -1,6 +1,5 @@
 let currentDraggedElement;
 
-
 /**
  * Initializes the board.
  */
@@ -76,12 +75,33 @@ function checkEmptyColumns() {
 
 /**
  * Starts the dragging process.
+ * @param {DragEvent} ev - Drag event
  * @param {number} id - Task ID
  */
-function startDragging(id) {
+function startDragging(ev, id) {
     currentDraggedElement = id;
+    // Essential: Set data to ensure browser treats this as a valid drag-drop operation
+    ev.dataTransfer.effectAllowed = "move";
+    ev.dataTransfer.setData("text/plain", String(id));
+
+    // Visual feedback: Rotate card (async to allow drag to start)
+    setTimeout(() => {
+        let card = document.getElementById(`task-${id}`);
+        if (card) card.classList.add('dragging');
+    }, 10);
 }
 
+/**
+ * Stops the dragging process and cleans up.
+ * @param {number} id - Task ID
+ */
+function stopDragging(id) {
+    let card = document.getElementById(`task-${id}`);
+    if (card) card.classList.remove('dragging');
+}
+
+
+let lastHighlighted = null;
 
 /**
  * Allows dropping an element.
@@ -89,6 +109,40 @@ function startDragging(id) {
  */
 function allowDrop(ev) {
     ev.preventDefault();
+    ev.dataTransfer.dropEffect = "move";
+    
+    let target = ev.target.closest('.task-list');
+    /* Optimize: only update if changed to avoid flickering */
+    if (target && target.id !== lastHighlighted) {
+        highlight(target.id);
+    }
+}
+
+/**
+ * Highlights a column when dragging over it.
+ * @param {string} id - Column ID
+ */
+function highlight(id) {
+    // Clear previous highlight if exists
+    if (lastHighlighted && lastHighlighted !== id) {
+        let prev = document.getElementById(lastHighlighted);
+        if (prev) prev.classList.remove('drag-area-highlight');
+    }
+
+    lastHighlighted = id;
+    
+    let col = document.getElementById(id);
+    if (col) col.classList.add('drag-area-highlight');
+}
+
+/**
+ * Removes highlight from a column.
+ * @param {string} id - Column ID
+ */
+function removeHighlight(id) {
+    let col = document.getElementById(id);
+    if (col) col.classList.remove('drag-area-highlight');
+    if (lastHighlighted === id) lastHighlighted = null;
 }
 
 
@@ -99,7 +153,26 @@ function allowDrop(ev) {
 function drop(ev) {
     ev.preventDefault();
     let target = ev.target.closest('.task-list');
+    
+    // Remove rotation
+    if (currentDraggedElement) {
+        let card = document.getElementById(`task-${currentDraggedElement}`);
+        if(card) card.classList.remove('dragging');
+    }
+    
+    // Clear highlights
+    if (lastHighlighted) {
+        removeHighlight(lastHighlighted);
+    }
+    // Deep clean to be safe
+    ['todo', 'inprogress', 'awaitfeedback', 'done'].forEach(id => {
+        let el = document.getElementById(id);
+        if(el) el.classList.remove('drag-area-highlight');
+    });
+    lastHighlighted = null;
+    
     if (!target) return;
+
     moveTo(currentDraggedElement, target.id);
 }
 
@@ -110,12 +183,15 @@ function drop(ev) {
  * @param {string} newStatus - New status ID
  */
 function moveTo(taskId, newStatus) {
+    console.log("Moving task", taskId, "to", newStatus); // Debug
     let task = tasks.find(t => t.id === taskId);
     if(task) {
         task.status = newStatus;
         saveTask(task);
         renderTasks();
         showToast("Task moved to " + newStatus.replace('awaitfeedback', 'Await Feedback').toUpperCase());
+    } else {
+        console.warn("Task not found:", taskId);
     }
 }
 
@@ -172,7 +248,25 @@ function filterTasks() {
  */
 function generateTaskHTML(task) {
     return `
-    <div draggable="true" ondragstart="startDragging(${task.id})" class="task-card" onclick="openTaskDetails(${task.id})">
+    <div draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(${task.id})" class="task-card" id="task-${task.id}" onclick="openTaskDetails(${task.id})">
+        
+        <!-- Mobile Move Menu Button -->
+        <div class="mobile-move-btn" onclick="toggleMoveMenu(event, ${task.id})">
+            <!-- Simple Arrow Up/Down/Move Icon -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2A3647" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 9l7-7 7 7"></path>
+                <path d="M5 15l7 7 7-7"></path>
+            </svg>
+        </div>
+        
+        <!-- Mobile Popup Menu -->
+        <div id="move-menu-${task.id}" class="move-menu d-none" onclick="event.stopPropagation()">
+            <div class="move-menu-item" onclick="moveToFromMenu(${task.id}, 'todo')">To Do</div>
+            <div class="move-menu-item" onclick="moveToFromMenu(${task.id}, 'inprogress')">In Progress</div>
+            <div class="move-menu-item" onclick="moveToFromMenu(${task.id}, 'awaitfeedback')">Await Feedback</div>
+            <div class="move-menu-item" onclick="moveToFromMenu(${task.id}, 'done')">Done</div>
+        </div>
+
         <div class="task-category ${getCategoryClass(task.category)}">${task.category}</div>
         <div class="task-title">${task.title}</div>
         <div class="task-description">${task.description}</div>
@@ -182,6 +276,35 @@ function generateTaskHTML(task) {
             <div class="priority-icon"><img src="${getPrioIcon(task.priority)}"></div>
         </div>
     </div>`;
+}
+
+/* --- Mobile Menu Logic --- */
+
+/**
+ * Toggles the mobile move menu.
+ * @param {Event} event 
+ * @param {number} taskId 
+ */
+function toggleMoveMenu(event, taskId) {
+    event.stopPropagation();
+    
+    // Close all other menus first
+    document.querySelectorAll('.move-menu').forEach(el => el.classList.add('d-none'));
+    
+    let menu = document.getElementById(`move-menu-${taskId}`);
+    if (menu) {
+        menu.classList.toggle('d-none');
+    }
+}
+
+/**
+ * Moves task from menu and closes menu.
+ * @param {number} taskId 
+ * @param {string} status 
+ */
+function moveToFromMenu(taskId, status) {
+    moveTo(taskId, status);
+    // Menu auto-closes because renderTasks() rebuilds DOM
 }
 
 
@@ -364,23 +487,6 @@ async function toggleSubtask(taskId, subtaskIndex) {
     if (!task || !task.subtasks || !task.subtasks[subtaskIndex]) return;
 
     // Toggle status
-    // Note: If called from div click, check if event target was checkbox to avoid double toggle?
-    // Actually simplicity: if I click row, I toggle. If I click checkbox, it toggles natively then I update state.
-    // Better logic:
-    // Make only the checkbox control it, OR make the whole row control it and handle UI sync.
-    // Let's rely on the task state.
-    // If I clicked the div, I manually flip the checkbox and the state.
-    // If I clicked the checkbox, I just update state.
-    
-    // Simplest approach: Update state based on current value? No, simplest is just invert boolean.
-    // But we need to distinguish clicks.
-    // Let's assume the function is called.
-    
-    // To avoid complexity, let's just make the whole row clickable and handle the logic carefully.
-    // But onclick on div AND onchange on input might conflict if bubbling.
-    // Let's prevent bubbling on checkbox.
-    
-    // Wait, simpler: just update state.
     let subtask = task.subtasks[subtaskIndex];
     subtask.done = !subtask.done;
     
@@ -391,11 +497,6 @@ async function toggleSubtask(taskId, subtaskIndex) {
     renderTasks();
     
     // Re-render modal list to reflect correct state (and visual checkbox)?
-    // Or just let it be. If I re-render, focus might be lost.
-    // If I don't re-render, the checkbox visually toggles fine (native behavior).
-    // EXCEPT if I click the text/div, I need to toggle the checkbox visually too.
-    
-    // Re-rendering is safest for syncing state but might flicker.
     renderModalSubtasksList(task);
 }
 
@@ -411,9 +512,6 @@ function closeTaskModal() {
  */
 async function deleteTask() {
     if (!currentOpenedTaskId) return;
-    
-    // Optional: Confirm dialog? User didn't ask, but good practice.
-    // Let's just delete for speed as requested "muss funktionieren".
     
     await deleteTaskData(currentOpenedTaskId);
     closeTaskModal();

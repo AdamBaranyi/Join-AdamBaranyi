@@ -414,6 +414,9 @@ function loadTaskForEdit(taskId) {
     
     // Hide Clear button in edit mode? Optional.
     document.querySelector('.btn-light').style.display = 'none';
+    
+    // Disable Category (User Story 6 Requirement)
+    document.getElementById('taskCategory').disabled = true;
 }
 
 /**
@@ -463,6 +466,9 @@ function resetEditUI() {
     submitBtn.innerHTML = `Create Task <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L9 16L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     document.querySelector('form').setAttribute('onsubmit', 'addTask(event)');
     document.querySelector('.btn-light').style.display = 'flex';
+    
+    // Re-enable Category
+    document.getElementById('taskCategory').disabled = false;
 }
 
 /**

@@ -241,11 +241,29 @@ async function saveContactData(contact) {
  * Deletes a contact.
  * @param {number} contactId 
  */
+/**
+ * Deletes a contact.
+ * @param {number} contactId 
+ */
 async function deleteContactData(contactId) {
     let index = contacts.findIndex(c => c.id === contactId);
     if (index > -1) {
+        let contactName = contacts[index].name; // Capture name before delete
         contacts.splice(index, 1);
         
+        // Remove contact from all tasks
+        let tasksUpdated = false;
+        tasks.forEach(task => {
+            if (task.assignedTo && Array.isArray(task.assignedTo)) {
+                let initialLen = task.assignedTo.length;
+                task.assignedTo = task.assignedTo.filter(c => c.name !== contactName);
+                if (task.assignedTo.length < initialLen) {
+                    saveTask(task); // Save updated task
+                    tasksUpdated = true;
+                }
+            }
+        });
+
         // Check Guest
         let user = sessionStorage.getItem('current_user');
         if (user && JSON.parse(user).email === 'guest@join.com') return;
