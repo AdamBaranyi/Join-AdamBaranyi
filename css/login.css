@@ -220,6 +220,65 @@
     animation: slideIn 0.5s ease-out;
 }
 
+/* Logo Animation & Base Styles */
+.logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.logo-anim {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    animation: moveLogo 1s ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes moveLogo {
+    0% { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 250px; }
+    100% { top: 60px; left: 60px; transform: translate(0, 0); width: 100px; }
+}
+
+.top-signup-link, .login-card, .legal-links {
+    opacity: 0;
+    animation: fadeInContent 1s ease-in-out forwards;
+    animation-delay: 1.2s;
+}
+
+@keyframes fadeInContent {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* No Anim Defaults */
+.no-anim .logo-container {
+    position: absolute;
+    z-index: 10;
+    height: auto;
+    width: auto;
+    top: 60px;
+    left: 60px;
+}
+.no-anim .logo-anim {
+    animation: none;
+    width: 100px;
+    position: static;
+    transform: none;
+}
+.no-anim .login-card, 
+.no-anim .legal-links,
+.no-anim .top-signup-link {
+    animation: none;
+    opacity: 1;
+}
+
 /* Responsive */
 @media(max-width: 850px) {
     .login-card {
@@ -252,20 +311,42 @@
     .top-signup-link {
         display: flex; /* Show it! */
         position: static; /* Remove absolute */
-        margin-top: 24px; /* Space below card */
-        font-size: 16px;
+        margin-top: 24px;
+        margin-bottom: 12px;
+        font-size: 14px; /* Smaller font for 320px */
         flex-direction: row;
         align-items: center;
-        gap: 10px;
+        gap: 8px; /* Maintain gap but small */
+        justify-content: center; /* Center links on mobile */
+        width: 100%;
+        text-align: center;
+        z-index: 10; /* Ensure clickable */
     }
     
     .top-signup-link span {
-        font-size: 16px;
+        font-size: 15px; /* Slightly reduced */
+        white-space: nowrap; /* Prevent ugly wrap mid-sentence if possible, or allow wrap */
+    }
+    
+    /* Responsive adjustments for 320px specifically if needed */
+    @media(max-width: 380px) {
+        .top-signup-link {
+            flex-direction: column; /* Stack on very small screens to fit */
+            gap: 5px;
+        }
+        .login-card {
+            width: 100%;
+            border-radius: 20px;
+            padding: 24px 12px;
+        }
+        .login-card h1 {
+            font-size: 47px;
+        }
     }
     
     .btn-primary-small {
-        font-size: 16px;
-        padding: 8px 16px;
+        font-size: 14px;
+        padding: 8px 12px;
     }
 
     /* Adjust Container Layout */
@@ -274,12 +355,18 @@
         padding-bottom: 60px; /* Space for legal links */
     }
     
-    /* Logo adjustments */
+    /* Logo adjustments Mobile */
+    .logo-container {
+        /* Inherits fixed from global, but check z-index */
+    }
+
     .logo-anim {
         width: 80px;
+        animation-name: moveLogoMobile; /* Override specifically */
+        /* Animation duration etc inherited or overridden */
     }    
     
-    @keyframes moveLogo {
+    @keyframes moveLogoMobile {
         0% { 
             top: 50%; 
             left: 50%; 
