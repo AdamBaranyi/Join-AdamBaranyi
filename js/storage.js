@@ -268,7 +268,7 @@ async function saveContactData(contact) {
             console.error("Server Error saving Contact:", response.status, response.statusText);
             alert("Fehler beim Speichern: " + response.status + " " + response.statusText);
         } else {
-            console.log("Contact saved to Firebase:", contact);
+
         }
     } catch (e) { 
         console.error("Network Error:", e);
