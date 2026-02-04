@@ -137,17 +137,22 @@ input {
   border-radius: 4px;
 }
 
+/* Mobile Menu Default (Hidden on Desktop) */
+.mobile-menu {
+  display: none;
+}
+
 /* Global Responsive Adjustments */
-@media (max-width: 950px) {
+@media (max-width: 1000px) {
     .content-container {
-        padding: 48px 20px 120px 20px; /* Reduced side padding, extra bottom for nav */
+        padding: 48px 16px 120px 16px; /* Reduced side padding (16px fit for 320px) */
     }
     
     body {
-        padding-top: 80px; /* Smaller header spacing */
+        padding-top: 80px;
     }
     
-    /* Mobile Menu */
+    /* Mobile Menu Visible */
     .mobile-menu {
         position: fixed;
         bottom: 0;
@@ -157,9 +162,11 @@ input {
         color: #CDCDCD;
         display: flex;
         justify-content: space-around;
-        padding: 15px 0;
+        padding: 10px 0; /* Reduced padding */
+        padding-bottom: env(safe-area-inset-bottom, 15px); /* iOS Safe Area */
         z-index: 1000;
-        border-radius: 20px 20px 0 0; /* Rounded top on mobile menu? */
+        border-radius: 15px 15px 0 0;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
     }
 
     .mobile-nav-item {

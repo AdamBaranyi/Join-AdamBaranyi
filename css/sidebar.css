@@ -129,12 +129,14 @@ body {
 }
 
 /* Response for Mobile (Basic plan for now) */
-@media(max-width: 850px) {
+@media(max-width: 1000px) {
     .sidebar {
-        display: none; /* For now, or strict mobile menu later */
+        display: none; 
     }
     .main-header {
         left: 0;
+        justify-content: space-between; 
+        padding: 0 20px;
     }
     body {
         padding-left: 0;

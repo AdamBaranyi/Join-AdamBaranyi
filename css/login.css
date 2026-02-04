@@ -222,114 +222,99 @@
 
 /* Responsive */
 @media(max-width: 850px) {
-    .top-signup-link {
-        display: none; /* Might need to check screenshot logic for mobile, usually buttons move */
-    }
     .login-card {
-        padding: 20px;
-        width: 90%;
+        padding: 30px 16px;
+        width: min(400px, 90%); /* Responsive width */
+        margin-top: 80px; /* Space for logo */
     }
-}
 
-/* Logo Animation */
-.logo-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 999;
-    /* Optional: background white if we want to obscure 'body' background loading, but 'opacity:0' on elements works too */
-}
-
-.logo-anim {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Start centered */
-    width: 250px; /* Big start size */
-    animation: moveLogo 1s ease-in-out forwards;
-    animation-delay: 0.5s; /* Stay in center for a bit */
-}
-
-@keyframes moveLogo {
-    0% {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 250px;
-    }
-    100% {
-        top: 60px; /* More spacing */
-        left: 60px;
-        transform: translate(0, 0);
-        width: 100px; /* Final bigger size */
-    }
-}
-
-/* Hide login elements initially and fade in */
-.top-signup-link, .login-card, .legal-links {
-    opacity: 0;
-    animation: fadeInContent 1s ease-in-out forwards;
-    animation-delay: 1.2s; /* Wait for logo to move */
-}
-
-@keyframes fadeInContent {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@media(max-width: 850px) {
-    .logo-anim {
-        width: 150px; /* Mobile start size */
+    .input-group {
+        width: 100%; /* Fluid width */
     }
     
-    @keyframes moveLogo {
-        0% {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 150px;
-        }
-        100% {
-            top: 30px;
-            left: 30px;
-            transform: translate(0, 0);
-            width: 80px; /* Mobile end size */
-        }
+    .input-group input {
+        width: 100%;
     }
-}
-/* --- NO ANIMATION OVERRIDES (for signup.html) --- */
-.no-anim .logo-container {
-    position: absolute;
-    z-index: 10;
-    height: auto;
-    width: auto;
-    top: 60px;
-    left: 60px;
-}
-
-.no-anim .logo-anim {
-    animation: none;
-    width: 100px;
-    position: static;
-    transform: none;
-}
-
-.no-anim .login-card, 
-.no-anim .legal-links,
-.no-anim .top-signup-link {
-    animation: none;
-    opacity: 1;
-}
-
-@media(max-width: 850px) {
-    .no-anim .logo-container {
-        top: 30px;
-        left: 30px;
+    
+    .login-buttons {
+        flex-direction: column;
+        width: 100%;
+        gap: 16px;
+        margin-top: 24px;
     }
-    .no-anim .logo-anim {
+    
+    .login-buttons .btn-dark, .login-buttons .btn-light {
+        width: 100%;
+        padding: 12px 0;
+    }
+    
+    /* Reposition "Not a Join user?" */
+    .top-signup-link {
+        display: flex; /* Show it! */
+        position: static; /* Remove absolute */
+        margin-top: 24px; /* Space below card */
+        font-size: 16px;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .top-signup-link span {
+        font-size: 16px;
+    }
+    
+    .btn-primary-small {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    /* Adjust Container Layout */
+    .login-container {
+        justify-content: center;
+        padding-bottom: 60px; /* Space for legal links */
+    }
+    
+    /* Logo adjustments */
+    .logo-anim {
         width: 80px;
+    }    
+    
+    @keyframes moveLogo {
+        0% { 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 100px; 
+            opacity: 1;
+        }
+        100% { 
+            top: 40px; 
+            left: 40px; 
+            transform: translate(0, 0); 
+            width: 80px; 
+            opacity: 1; 
+        } 
+    }
+    
+    .no-anim .logo-container {
+        top: 40px; 
+        left: 40px; 
+        transform: none;
+        width: auto;
+        height: auto;
+    }
+}
+
+@media(max-height: 700px) {
+    .login-card {
+        margin-top: 60px;
+        padding: 20px 16px;
+    }
+    .separator-blue {
+        margin-bottom: 20px;
+    }
+    .login-card h1 {
+        font-size: 40px;
+        margin-bottom: 10px;
     }
 }

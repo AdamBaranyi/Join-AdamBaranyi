@@ -274,102 +274,42 @@
     
     /* Board Header Mobile */
     .board-header {
-        flex-direction: column;
-        align-items: stretch; /* Change to stretch to fill width */
-        gap: 20px;
-    }
-    
-    .board-controls {
-        flex-direction: row; /* Keep row for title + button logic if we restructure html, OR keep distinct row logic */
-        /* Wait, the HTML structure is: H1 ... Controls(Search, Button). 
-           We need H1 and Button on Row 1, Search on Row 2. 
-           But H1 is outside Controls. 
-           
-           Solution:
-           Flex Box can order items or absolute position. 
-           Or we change the HTML structure to be more flexible? 
-           Actually, simpler: use Grid or absolute.
-           
-           Let's use a specific style for mobile to make H1 and Button align.
-        */
-        flex-wrap: wrap; 
-        justify-content: space-between;
-        width: 100%;
         display: flex;
-    }
-
-    /* We need to Target the H1 and the Button to be on the top row, and search bar below.
-       Currently:
-       <div class="board-header">
-           <h1>Board</h1>
-           <div class="board-controls">
-                <div class="search-bar">...</div>
-                <button>Add Task</button>
-           </div>
-       </div>
-       
-       On Mobile:
-       Row 1: H1 (Left) -- Button (Right)
-       Row 2: Search Bar 
-       
-       We can pull the Button out of flow or use Display Grid on the Parent (.board-header) if we flatten, but we can't easily flatten without JS or HTML change.
-       
-       Alternative:
-       .board-header { display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; }
-       h1 { grid-column: 1 / 2; grid-row: 1; }
-       .board-controls { display: contents; } 
-           .search-bar { grid-row: 2; grid-column: 1 / -1; width: 100%; }
-           .btn-add-task { grid-row: 1; grid-column: 2; }
-       
-       Let's try display: contents on .board-controls (wrapper removal visually).
-    */
-
-    .board-header {
-        display: grid;
-        grid-template-columns: 1fr auto; /* Title + Button */
-        grid-template-rows: auto auto; /* Title/Btn + Search */
-        gap: 20px;
-        align-items: center;
-    }
-
-    .board-controls {
-        display: contents; /* Remove wrapper visual box */
+        flex-direction: column;
+        align-items: flex-start; /* Align left */
+        gap: 24px;
     }
 
     .board-header h1 {
-        grid-column: 1;
-        grid-row: 1;
-        margin-bottom: 0; /* Remove existing margin */
         font-size: 47px;
-    }
-
-    .btn-add-task {
-        grid-column: 2;
-        grid-row: 1;
-        width: 40px; /* Square button */
-        height: 40px;
-        padding: 0;
-        justify-content: center;
-        border-radius: 10px;
-        min-width: unset; /* Remove min-width from global */
-        font-size: 0; /* Hide text "Add Task" */
+        margin-bottom: 0;
     }
     
-    .btn-add-task svg {
-        margin: 0; /* Center SVG */
+    .board-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
     }
 
     .search-bar {
-        grid-row: 2;
-        grid-column: 1 / -1;
         width: 100%;
     }
-    
-/* ... Existing mobile styles ... */
     
     .search-bar input {
         width: 100%;
     }
+    
+    .btn-add-task {
+        width: 100%; /* Full width button on mobile */
+        justify-content: center;
+        font-size: 21px; /* Restore text size */
+    }
+    
+    /* Hide the text "Add Task" ? No, on mobile full width button usually has text.
+       Unless we want the compact "+" button next to input? 
+       Check user preference "di app ist überhaupt nicht responsive".
+       Full width is safer for 320px. */
 }
 
 
