@@ -307,46 +307,61 @@
         padding: 12px 0;
     }
     
-    /* Reposition "Not a Join user?" */
+    /* top-signup-link adjustments for mobile */
     .top-signup-link {
-        display: flex; /* Show it! */
-        position: static; /* Remove absolute */
+        display: flex; 
+        position: static; 
         margin-top: 24px;
-        margin-bottom: 12px;
-        font-size: 14px; /* Smaller font for 320px */
-        flex-direction: row;
+        margin-bottom: 24px;
+        font-size: 16px; /* User requirement: min 16px */
+        flex-direction: column; /* Stack vertically to save width */
         align-items: center;
-        gap: 8px; /* Maintain gap but small */
-        justify-content: center; /* Center links on mobile */
+        gap: 12px;
+        justify-content: center; 
         width: 100%;
         text-align: center;
-        z-index: 10; /* Ensure clickable */
+        z-index: 10;
     }
     
     .top-signup-link span {
-        font-size: 15px; /* Slightly reduced */
-        white-space: nowrap; /* Prevent ugly wrap mid-sentence if possible, or allow wrap */
-    }
-    
-    /* Responsive adjustments for 320px specifically if needed */
-    @media(max-width: 380px) {
-        .top-signup-link {
-            flex-direction: column; /* Stack on very small screens to fit */
-            gap: 5px;
-        }
-        .login-card {
-            width: 100%;
-            border-radius: 20px;
-            padding: 24px 12px;
-        }
-        .login-card h1 {
-            font-size: 47px;
-        }
+        font-size: 16px;
     }
     
     .btn-primary-small {
-        font-size: 14px;
-        padding: 8px 12px;
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    /* Responsive adjustments for 320px specifically */
+    @media(max-width: 380px) {
+        .login-card {
+            width: 100%;
+            max-width: 100%; /* Ensure it doesn't overflow container */
+            border-radius: 20px;
+            padding: 24px 12px; /* Minimal padding to fit content */
+            box-sizing: border-box; /* Critical */
+        }
+        
+        .login-card h1 {
+            font-size: 40px; /* Reduced H1 only */
+        }
+        
+        /* Ensure inputs don't overflow due to padding */
+        .input-group input {
+            padding: 13px 40px 13px 16px; /* Reduced internal padding */
+            font-size: 16px; /* Min 16px */
+        }
+        
+        /* Adjust icon positioning for narrower inputs */
+        .input-group img, .password-toggle {
+            right: 12px; 
+        }
+        .password-toggle {
+            right: 45px;
+        }
+        #loginPassword {
+            padding-right: 80px;
+        }
     }
 
     /* Adjust Container Layout */
