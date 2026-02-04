@@ -23,6 +23,46 @@ async function initStorage() {
         }
     }
     await loadData();
+    await loadUsers(); // Ensure users are loaded
+    await migrateUsersToContacts(); // Backfill users as contacts (User Story 5)
+}
+
+/**
+ * Ensures all registered users exist in the contacts list.
+ */
+async function migrateUsersToContacts() {
+    let usersList = getUsers(); // Need to expose users
+    if(!usersList) return;
+
+    let changes = false;
+    usersList.forEach(user => {
+        // Check if this user exists in contacts (by email)
+        if (!contacts.find(c => c.email === user.email)) {
+            // Not found, create it
+            let newContact = {
+                id: new Date().getTime() + Math.floor(Math.random() * 1000), // Uniqueish ID
+                name: user.name,
+                email: user.email,
+                phone: 'User Profile',
+                color: '#9327FF',
+                initials: user.name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()
+            };
+            contacts.push(newContact);
+            changes = true;
+        }
+    });
+
+    if (changes) {
+        // Bulk save or just letting the runtime know? 
+        // To persist, we should loop save contact?
+        // For efficiency, maybe just leave it in memory for session, OR save.
+        // User requested "nachträglich eingefügt", implying persistence.
+        // We'll iterate and save new ones.
+        // Re-looping to save only new ones is tricky without tracking.
+        // Let's filter again.
+        let promises = contacts.filter(c => c.phone === 'User Profile').map(c => saveContactData(c));
+        await Promise.all(promises);
+    }
 }
 
 /* --- DEMO DATA --- */
@@ -290,6 +330,14 @@ async function loadUsers() {
     } catch (e) {
         console.error("Error loading users:", e);
     }
+}
+
+/**
+ * Returns the current list of users.
+ * @returns {Array} List of user objects
+ */
+function getUsers() {
+    return users;
 }
 
 

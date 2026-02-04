@@ -31,8 +31,24 @@ async function handleSignup(event) {
     let result = await registerUser(name, email, password);
 
     if (result.success) {
+        // AUTOMATICALLY CREATE CONTACT FOR USER (User Story 5)
+        // We need to access createContact logic. 
+        // Since register.js is likely loaded with storage.js, we can use saveContactData directly.
+        // But createContact is in contacts.js. 
+        // We'll reimplement specific logic here or rely on storage helpers.
+        // Better: Use a helper in storage.js or just construct object.
+        let newContact = {
+            id: new Date().getTime(),
+            name: name,
+            email: email,
+            phone: 'User Profile', // Default or empty?
+            color: '#29ABE2', // Default color
+            initials: name.match(/(\b\S)?/g).join("").match(/(^\S|\S$)?/g).join("").toUpperCase()
+        };
+        await saveContactData(newContact);
+        // -----------------------------------------------------
+
         // Show success animation or toast
-        // Creating a simple overlay for success
         showSuccessAnimation();
         setTimeout(() => {
             window.location.href = '../index.html?msg=registered';
