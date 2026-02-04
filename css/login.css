@@ -86,6 +86,7 @@
     font-size: 21px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
+    box-sizing: border-box; /* Prevent overflow */
 }
 
 /* Extra padding for password field to fit 2 icons */
@@ -335,32 +336,40 @@
     /* Responsive adjustments for 320px specifically */
     @media(max-width: 380px) {
         .login-card {
-            width: 100%;
-            max-width: 100%; /* Ensure it doesn't overflow container */
+            width: 94%; /* Leave tiny space on sides */
+            max-width: 100%; 
             border-radius: 20px;
-            padding: 24px 12px; /* Minimal padding to fit content */
-            box-sizing: border-box; /* Critical */
+            padding: 24px 10px; /* Minimal padding */
+            box-sizing: border-box;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .login-card h1 {
-            font-size: 40px; /* Reduced H1 only */
+            font-size: 40px; 
         }
         
-        /* Ensure inputs don't overflow due to padding */
+        .input-group {
+            width: 100%;
+        }
+        
+        /* Ensure inputs fit and don't overflow */
         .input-group input {
-            padding: 13px 40px 13px 16px; /* Reduced internal padding */
-            font-size: 16px; /* Min 16px */
+            padding: 13px 40px 13px 12px; /* reduced left padding too */
+            font-size: 16px; 
+            width: 100%;
+            box-sizing: border-box;
         }
         
-        /* Adjust icon positioning for narrower inputs */
+        /* Adjust icon positioning */
         .input-group img, .password-toggle {
             right: 12px; 
         }
         .password-toggle {
-            right: 45px;
+            right: 40px;
         }
         #loginPassword {
-            padding-right: 80px;
+            padding-right: 75px;
         }
     }
 
