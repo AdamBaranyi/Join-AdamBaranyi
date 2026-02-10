@@ -281,11 +281,20 @@
 }
 
 /* Responsive */
+
+/* Tablet / Standard Mobile (< 850px) */
 @media(max-width: 850px) {
+    /* Reset Body Padding potentially inherited from global style.css */
+    body {
+        padding-top: 0 !important;
+        height: auto; /* allow scroll if needed, don't force 100vh check */
+        min-height: 100vh;
+    }
+
     .login-card {
         padding: 30px 16px;
         width: min(400px, 90%); /* Responsive width */
-        margin-top: 80px; /* Space for logo */
+        margin-top: 80px; /* Space for logo in "standard" mobile view */
     }
 
     .input-group {
@@ -313,11 +322,11 @@
         display: flex; 
         position: static; 
         margin-top: 24px;
-        margin-bottom: 24px;
-        font-size: 16px; /* User requirement: min 16px */
-        flex-direction: column; /* Stack vertically to save width */
+        margin-bottom: 12px;
+        font-size: 16px; 
+        flex-direction: row;
         align-items: center;
-        gap: 12px;
+        gap: 8px; 
         justify-content: center; 
         width: 100%;
         text-align: center;
@@ -333,120 +342,18 @@
         padding: 8px 16px;
     }
 
-    /* Responsive adjustments for 320px specifically */
-    @media(max-width: 380px) {
-        /* Kill Horizontal Scroll */
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-        }
-
-        .login-card {
-            width: 280px; /* Explicitly safe for 320px */
-            max-width: 90%; 
-            padding: 16px 10px; /* compact padding */
-            margin: 0 auto; /* Center */
-        }
-        
-        .login-card h1 {
-            font-size: 32px; /* Smaller title */
-            margin-bottom: 15px;
-        }
-        
-        .separator-blue {
-            margin-bottom: 20px; /* Reduced gap */
-        }
-        
-        /* Force Input Group Width */
-        .input-group {
-            width: 100% !important; /* Override explicit global width */
-            margin-bottom: 12px;
-        }
-        
-        .input-group input {
-            padding: 10px 40px 10px 12px;
-            font-size: 16px; 
-            height: 40px; /* Compact height */
-        }
-        
-        /* Compact Buttons */
-        .login-buttons {
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .login-buttons .btn-dark, 
-        .login-buttons .btn-light {
-            padding: 0; /* Let flex centering handle it */
-            height: 40px; /* Compact button height */
-            font-size: 16px;
-            min-height: unset; /* Remove min-height constraint if exists */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Wrap "Not a Join user" nicely */
-        .top-signup-link {
-            width: 90%;
-            flex-wrap: wrap; /* allow wrapping */
-            white-space: normal;
-        }
-        
-        .top-signup-link span {
-            white-space: normal;
-            font-size: 14px;
-        }
-
-        /* Adjust footer positioning to not force scroll if possible */
-        .legal-links {
-            position: relative; /* Static position in flow */
-            bottom: auto;
-            margin-top: 30px;
-            padding-bottom: 20px;
-        }
-        
-        /* Adjust container to allow scroll if needed but not force it */
-        .login-container {
-            height: auto;
-            min-height: 100vh;
-            justify-content: flex-start;
-            padding-top: 40px; /* Space for logo animation area */
-        }
-        
-        /* Adjust logo start position for mobile flow */
-        .no-anim .logo-container {
-             top: 20px;
-             left: 20px;
-        }
-        
-        /* Ensure animation ends at a safe spot */
-        @keyframes moveLogoMobile {
-            0% { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; }
-            100% { top: 20px; left: 20px; transform: translate(0, 0); width: 60px; }
-        }
-        
-        .logo-anim {
-            /* Update end state styles matching keyframes */
-            width: 60px; 
-        }
-    }
-
     /* Adjust Container Layout */
     .login-container {
         justify-content: center;
         padding-bottom: 60px; /* Space for legal links */
+        height: auto; 
+        min-height: 100vh;
     }
     
     /* Logo adjustments Mobile */
-    .logo-container {
-        /* Inherits fixed from global, but check z-index */
-    }
-
     .logo-anim {
         width: 80px;
-        animation-name: moveLogoMobile; /* Override specifically */
-        /* Animation duration etc inherited or overridden */
+        animation-name: moveLogoMobile; 
     }    
     
     @keyframes moveLogoMobile {
@@ -473,18 +380,181 @@
         width: auto;
         height: auto;
     }
+    .no-anim .logo-anim {
+        width: 80px;
+    }
+}
+
+/* Compact Mobile (< 480px) - Covers 320px to large phones */
+@media(max-width: 480px) {
+    /* Kill Horizontal Scroll explicitly */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        padding-top: 0 !important;
+    }
+
+    /* 
+       Card Width Strategy for 320px:
+       320px * 0.92 = ~294px total width.
+       Padding 16px * 2 = 32px.
+       Content Width = 262px.
+       This is sufficient for 16px text. 
+    */
+    .login-card {
+        width: 92%; 
+        max-width: 320px; 
+        padding: 24px 16px; 
+        margin: 0 auto; 
+    }
+    
+    .login-card h1 {
+        font-size: 32px; /* Readable title */
+        margin-bottom: 20px;
+    }
+    
+    .separator-blue {
+        margin-bottom: 24px; 
+        width: 80px;
+    }
+    
+    /* Input Groups */
+    .input-group {
+        width: 100% !important; 
+        margin-bottom: 16px; 
+        max-width: none;
+    }
+    
+    /* 
+       Accessibility: Min 16px font-size.
+       Height: Sufficient for touch targets.
+    */
+    .input-group input {
+        padding: 10px 40px 10px 14px; 
+        font-size: 16px !important; 
+        height: 44px; /* Touch friendly */
+        line-height: normal;
+    }
+    
+    /* Icon adjustments */
+    .input-group img, .password-toggle {
+        width: 18px;
+        height: 18px;
+        right: 12px;
+        top: 50%;
+    }
+    .password-toggle {
+        right: 35px;
+    }
+    #loginPassword {
+        padding-right: 60px;
+    }
+
+    /* Checkbox Label */
+    .checkbox-group label, 
+    .checkbox-group span {
+        font-size: 16px !important;
+    }
+    
+    /* Compact Buttons */
+    .login-buttons {
+        gap: 12px;
+        margin-top: 24px;
+    }
+
+    .login-buttons .btn-dark, 
+    .login-buttons .btn-light {
+        padding: 0; 
+        height: 44px; /* Touch friendly */
+        font-size: 16px !important; 
+        min-height: unset; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Top link area - wrap correctly */
+    .top-signup-link {
+        width: 100%;
+        flex-wrap: wrap; 
+        white-space: normal;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        gap: 8px;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .top-signup-link span {
+        font-size: 16px !important; 
+        white-space: normal;
+        color: #000;
+    }
+
+    /* Sign Up Button */
+    .btn-primary-small {
+        padding: 8px 16px;
+        font-size: 16px !important;
+        height: auto;
+    }
+
+    /* Footer - Vertical Stack for safety on narrow screens */
+    .legal-links {
+        position: relative; 
+        bottom: auto;
+        margin-top: 30px;
+        padding-bottom: 40px;
+        gap: 12px;
+        flex-direction: column; 
+        align-items: center;
+    }
+    
+    .legal-links a {
+        font-size: 16px !important; /* Accessibility Requirement */
+        padding: 8px;
+    }
+    
+    /* Container */
+    .login-container {
+        height: auto;
+        min-height: 100vh;
+        justify-content: center; 
+        /* Ensure top padding clears fixed logo */
+        padding-top: 100px; 
+        padding-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Logo adjustments start mobile */
+    .no-anim .logo-container {
+         top: 20px;
+         left: 20px;
+         transform: scale(0.85); 
+         position: fixed; 
+    }
+    
+    /* Animation end state */
+    @keyframes moveLogoMobile {
+        0% { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; }
+        100% { top: 20px; left: 20px; transform: translate(0, 0); width: 60px; }
+    }
+    
+    .logo-anim {
+        width: 60px; 
+    }
 }
 
 @media(max-height: 700px) {
     .login-card {
-        margin-top: 60px;
+        margin-top: 20px; /* Reduce further if height is small */
         padding: 20px 16px;
     }
     .separator-blue {
         margin-bottom: 20px;
     }
     .login-card h1 {
-        font-size: 40px;
+        font-size: 32px;
         margin-bottom: 10px;
     }
 }

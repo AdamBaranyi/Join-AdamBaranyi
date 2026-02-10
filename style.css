@@ -146,10 +146,17 @@ input {
 @media (max-width: 1000px) {
     .content-container {
         padding: 48px 16px 120px 16px; /* Reduced side padding (16px fit for 320px) */
+        max-width: 100%; /* Ensure full width on mobile so scrollbar is at the edge */
     }
     
-    body {
-        padding-top: 80px;
+    .header-title {
+        display: none;
+    }
+    
+    .main-header {
+        justify-content: space-between; /* Ensure icons stay right or left? Ref has icons on right, logo on left? Ref Image 1 shows Logo Top Left. */
+        /* If logo is in sidebar.html mobile view, it might be separate. 
+           In mobile_menu.html or sidebar? */
     }
     
     /* Mobile Menu Visible */

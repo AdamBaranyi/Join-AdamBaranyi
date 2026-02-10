@@ -307,3 +307,126 @@
         display: none; /* Hide line on very small screens */
     }
 }
+/* Mobile Adaptation (< 480px) */
+@media (max-width: 480px) {
+    /* Reset Global Padding overrides if any */
+    .content-container {
+        padding-left: 16px; 
+        padding-right: 16px;
+        padding-bottom: 80px; /* Space for mobile menu */
+    }
+
+    /* Header */
+    .summary-title-section {
+        margin-bottom: 24px;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .summary-title-section h1 {
+        font-size: 36px;
+        margin-bottom: 0;
+    }
+
+    .summary-title-section .subtitle {
+        font-size: 16px; /* Min requirement */
+        margin-left: 0;
+    }
+    
+    .vertical-line {
+        display: none;
+    }
+
+    /* Cards Layout */
+    .dashboard-content {
+        gap: 24px;
+    }
+    
+    .metrics-column {
+        gap: 16px;
+        min-width: auto;
+    }
+
+    .metrics-row {
+        gap: 16px;
+    }
+
+    /* Universal Card Reset for Mobile */
+    .metric-card, 
+    .metric-card-small, 
+    .urgent-card {
+        padding: 20px 16px;
+        min-width: unset;
+        width: 100%;
+        min-height: auto;
+        border-radius: 20px;
+    }
+
+    /* Icons */
+    .icon-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+    
+    .icon-urgent img {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Text Sizes */
+    .metric-text .number,
+    .metric-card-small .number {
+        font-size: 40px; 
+        margin-bottom: 0;
+    }
+
+    .metric-text .label,
+    .metric-card-small .label {
+        font-size: 16px; /* Min requirement */
+    }
+
+    /* Urgent Card Specifics */
+    .urgent-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+        padding: 24px 16px;
+    }
+
+    .urgent-left {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .vertical-line-small {
+        display: none; /* Hide vertical line in stack */
+    }
+    
+    .urgent-right {
+        align-items: center; 
+    }
+    
+    .date-bold {
+        font-size: 20px;
+    }
+    
+    .label-small {
+        font-size: 16px; 
+    }
+
+    /* Greeting Section */
+    .greeting-column {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .greeting-time {
+        font-size: 28px;
+    }
+
+    .greeting-name {
+        font-size: 36px;
+    }
+}
