@@ -1,15 +1,15 @@
-/* Main Column Layout */
+/* --- MAIN LAYOUT --- */
 h1 {
-    font-size: 64px; /* Slightly reduced */
+    font-size: 64px;
     font-weight: 700;
-    margin-bottom: 30px; /* Reduced space */
+    margin-bottom: 30px;
 }
 
 .add-task-layout {
     display: flex;
-    gap: 80px; /* Keep or increase slightly, separator handles visual split */
-    margin-top: 40px; /* Slight increase */
-    align-items: flex-start; /* Ensure columns don't stretch weirdly */
+    gap: 80px;
+    margin-top: 40px;
+    align-items: flex-start;
 }
 
 .add-task-column {

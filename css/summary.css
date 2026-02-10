@@ -1,4 +1,4 @@
-/* Main Content Wrapper */
+/* --- MAIN CONTENT WRAPPER --- */
 .content-container {
     /* Padding inherited from style.css (80px) */
     max-width: 1400px;
@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    margin-bottom: 40px; /* Reduced from 60px */
+    margin-bottom: 40px;
 }
 
 .summary-title-section h1 {

@@ -9,9 +9,6 @@ let contacts = [];
 /**
  * Initializes the storage by loading data from the server.
  */
-/**
- * Initializes the storage by loading data from the server.
- */
 async function initStorage() {
     let user = sessionStorage.getItem('current_user');
     if (user) {
@@ -67,6 +64,10 @@ async function migrateUsersToContacts() {
 
 /* --- DEMO DATA --- */
 
+/**
+ * Returns a list of demo tasks for guest users.
+ * @returns {Array} List of demo tasks
+ */
 function getDemoTasks() {
     return [
         {
@@ -127,6 +128,10 @@ function getDemoTasks() {
     ];
 }
 
+/**
+ * Returns a list of demo contacts for guest users.
+ * @returns {Array} List of demo contacts
+ */
 function getDemoContacts() {
     return [
         { id: 1, name: "Anton Mayer", email: "anton@gmail.com", phone: "+49 1111 111 11 1", color: "#FF7A00" },
@@ -266,9 +271,7 @@ async function saveContactData(contact) {
         });
         if(!response.ok) {
             console.error("Server Error saving Contact:", response.status, response.statusText);
-            alert("Fehler beim Speichern: " + response.status + " " + response.statusText);
-        } else {
-
+            alert("Error saving: " + response.status + " " + response.statusText);
         }
     } catch (e) { 
         console.error("Network Error:", e);
@@ -277,10 +280,6 @@ async function saveContactData(contact) {
 }
 
 
-/**
- * Deletes a contact.
- * @param {number} contactId 
- */
 /**
  * Deletes a contact.
  * @param {number} contactId 

@@ -170,9 +170,6 @@ function handleSubtaskKey(event) {
 /**
  * Renders the list of subtasks.
  */
-/**
- * Renders the list of subtasks.
- */
 function renderSubtasks() {
     let list = document.getElementById('subtaskList');
     list.innerHTML = '';

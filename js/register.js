@@ -31,12 +31,7 @@ async function handleSignup(event) {
     let result = await registerUser(name, email, password);
 
     if (result.success) {
-        // AUTOMATICALLY CREATE CONTACT FOR USER (User Story 5)
-        // We need to access createContact logic. 
-        // Since register.js is likely loaded with storage.js, we can use saveContactData directly.
-        // But createContact is in contacts.js. 
-        // We'll reimplement specific logic here or rely on storage helpers.
-        // Better: Use a helper in storage.js or just construct object.
+        // Automatically create contact for user
         let newContact = {
             id: new Date().getTime(),
             name: name,
@@ -90,6 +85,9 @@ function showSuccessAnimation() {
 
 /* --- Live Validation --- */
 
+/**
+ * Initializes live validation on page load.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     // Only run on signup page
     if(document.getElementById('signupName')) {

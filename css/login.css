@@ -15,7 +15,7 @@
     right: 60px;
     display: flex;
     align-items: center;
-    gap: 35px; /* Increased gap */
+    gap: 35px;
     font-size: 20px;
     font-weight: 700;
 }
@@ -56,7 +56,7 @@
     width: 422px; /* Fixed width from reference */
 }
 
-/* Icons */
+/* --- ICONS --- */
 .input-group img, .password-toggle {
     position: absolute;
     top: 50%;

@@ -5,7 +5,7 @@
     background-color: var(--color-bg);
 }
 
-/* List Side */
+/* --- LIST SIDE --- */
 .contacts-list-container {
     width: 456px; /* Specific width */
     background-color: var(--color-white);

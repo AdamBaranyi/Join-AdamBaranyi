@@ -4,9 +4,6 @@
 /**
  * Initializes the application.
  */
-/**
- * Initializes the application.
- */
 async function init() {
   try {
       checkAuth(); // Protect private pages

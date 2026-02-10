@@ -4,7 +4,7 @@
     margin: 0 auto;
     background-color: var(--color-bg); /* Assuming standard bg */
     position: relative;
-    padding-bottom: 50px; /* Space for footer/scroll */
+    padding-bottom: 50px;
 }
 
 .help-header {

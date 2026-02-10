@@ -13,7 +13,7 @@
   --font-primary: "Inter", sans-serif;
 }
 
-/* Reset & Basics */
+/* --- RESET & BASICS --- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -35,7 +35,7 @@ body.show {
   opacity: 1;
 }
 
-/* Common Classes */
+/* --- COMMON CLASSES --- */
 .d-none {
   display: none !important;
 }
@@ -72,9 +72,7 @@ a {
     transition: color 100ms ease-in-out;
 }
 
-/* Specific button overrides usually re-apply border if needed, 
-   but DoD asked to start with unset. 
-   Existing .btn-light etc will add own borders. */
+
 
 .btn-light {
     background-color: white;

@@ -1,4 +1,4 @@
-/* Sidebar */
+/* --- SIDEBAR --- */
 .sidebar {
     width: 232px;
     height: 100vh;
@@ -14,7 +14,7 @@
 
 .sidebar-logo {
     display: flex;
-    justify-content: center; /* True center */
+    justify-content: center;
     padding: 0;
     margin-bottom: 60px;
 }

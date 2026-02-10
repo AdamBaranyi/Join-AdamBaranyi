@@ -127,17 +127,10 @@ function closeContactDetails() {
 
 /**
  * Opens the bottom sheet/options for mobile interaction.
- * Uses the same logic as Board mobile menu if possible, or a simple implementation.
- * For now, we will reuse the edit/delete modal or logic.
- * Simple Approach: Just trigger standard edit/show edit modal directly? 
- * Or show a small menu div.
+ * @param {string} email
  */
 function openMobileOptions(email) {
-    // For simplicity/UX on small screens, let's just show a custom toast or small menu
-    // Actually, let's reuse the existing contact-actions if we styled them for mobile popup.
-    // But contact-actions is inside contact-name-section.
-    
-    // Let's create a temporary overlay menu
+    // Create a temporary overlay menu
     let optionsMenu = document.createElement('div');
     optionsMenu.className = 'mobile-options-overlay'; // I need to style this or use existing classes
     optionsMenu.style.position = 'fixed';

@@ -13,7 +13,7 @@
 .simple-page-content h1 {
     font-size: 61px;
     font-weight: 700;
-    margin: 0; /* margin-bottom handled by header */
+    margin: 0;
 }
 
 .btn-back {
