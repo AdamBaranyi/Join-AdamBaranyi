@@ -23,9 +23,14 @@ Join is a Kanban-style project management tool inspired by Trello. It allows use
 - **Organization**: Contacts are grouped alphabetically.
 - **Integration**: Assign tasks directly to your saved contacts.
 
-### 📊 Summary
+### 📊 Summary (Join 360)
 
-- **Dashboard**: Get a quick overview of your upcoming deadlines and task distribution.
+- **Dashboard**: Get a comprehensive "Join 360" overview of key metrics, upcoming deadlines, and task distribution at a glance.
+
+### 📱 Mobile Experience
+
+- **Touch-Friendly**: Optimized buttons and inputs for touch interaction.
+- **Responsive Views**: Adaptive layouts for Board (horizontal scrolling), Contacts (Master-Detail toggle), and Menus, fully functional down to 320px.
 
 ### 🔐 Authentication
 
@@ -38,7 +43,7 @@ Join is a Kanban-style project management tool inspired by Trello. It allows use
 
 - **Frontend**: Vanilla JavaScript, HTML5, CSS3.
 - **Backend / Storage**: Firebase Realtime Database (via REST API / `storage.js` adapter).
-- **Design**: Responsive layout optimized for Desktop and Mobile usage.
+- **Design**: Fully responsive layout optimized for all devices (Desktop, Tablet, Mobile) down to 320px width.
 
 ## 📦 How to Run
 
