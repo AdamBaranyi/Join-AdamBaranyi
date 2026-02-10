@@ -116,14 +116,75 @@
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
 /* Mobile */
+/* Mobile */
 @media(max-width: 850px) {
     #contact-modal {
         flex-direction: column;
         width: 90%;
+        max-width: 400px; /* Constrain width */
         height: auto;
+        max-height: 90vh;
+        overflow-y: auto; /* Allow scroll if too tall */
+        border-radius: 30px;
     }
-    .contact-modal-left { width: 100%; height: 250px; padding: 20px; }
-    .contact-modal-left h1 { font-size: 40px; }
-    .contact-modal-right { width: 100%; padding: 20px; flex-direction: column; }
-    .contact-modal-actions { justify-content: center; }
+
+    .contact-modal-left {
+        width: 100%;
+        height: auto;
+        padding: 40px 24px 80px 24px; /* Extra bottom padding for avatar overlap */
+        border-radius: 30px 30px 0 0;
+        position: relative; /* For close button */
+    }
+
+    .contact-modal-left h1 {
+        font-size: 47px;
+    }
+    
+    .contact-modal-left img {
+         display: none; /* Hide logo to save space on mobile */
+    }
+
+    .contact-modal-right {
+        width: 100%;
+        padding: 60px 24px 24px 24px; /* Top padding for avatar */
+        flex-direction: column;
+        position: relative;
+    }
+
+    /* Move Close Button to Top Dark Area */
+    .close-contact-modal {
+        top: 24px;
+        right: 24px;
+        z-index: 20;
+    }
+    
+    .close-contact-modal svg path {
+        stroke: white; /* Make X white */
+    }
+
+    /* Center Avatar Overlapping */
+    .contact-avatar-container {
+        position: absolute;
+        top: -60px; /* Half of 120px height */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+
+    .contact-modal-right form {
+        gap: 20px;
+        width: 100%;
+    }
+
+    .contact-modal-actions {
+        margin-top: 10px;
+        justify-content: center;
+        flex-direction: column; /* Stack buttons */
+        gap: 16px;
+    }
+    
+    .contact-modal-actions button {
+        width: 100%;
+        justify-content: center;
+    }
 }

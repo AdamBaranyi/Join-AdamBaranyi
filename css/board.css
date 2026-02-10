@@ -261,14 +261,20 @@
 /* Mobile Responsiveness */
 /* Mobile Responsiveness */
 @media (max-width: 1000px) {
+    /* Allow body scroll on mobile for Board to ensure full height visibility */
+    body {
+        overflow-y: auto !important;
+    }
+
     .content-container {
-        padding-bottom: 160px !important; /* Matches Add Task success */
+        padding-bottom: 200px !important; 
+        height: auto !important; /* Let content grow */
+        overflow-y: visible !important; /* Disable internal scroll */
     }
 
     .board-columns {
         flex-direction: column;
         gap: 24px;
-        /* create extra space at bottom of columns just in case */
         padding-bottom: 24px; 
     }
 

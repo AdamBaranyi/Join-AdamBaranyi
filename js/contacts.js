@@ -42,43 +42,20 @@ function renderContactGroups(listContainer) {
  * @returns {string} HTML
  */
 function generateContactHTML(contact) {
+    // Fallback if initials are missing or invalid
+    let initials = contact.initials;
+    if (!initials || initials === 'undefined') {
+        initials = getInitials(contact.name);
+    }
+
     return `
     <div class="contact-item" onclick="showContactDetails('${contact.email}')">
-        <div class="contact-initials" style="background-color: ${contact.color};">${contact.initials}</div>
+        <div class="contact-initials" style="background-color: ${contact.color};">${initials}</div>
         <div class="contact-name-mail">
             <span class="contact-name">${contact.name}</span>
             <span class="contact-email">${contact.email}</span>
         </div>
     </div>`;
-}
-
-
-/**
- * Display the details of a specific contact.
- * @param {string} email 
- */
-function showContactDetails(email) {
-    let contact = contacts.find(c => c.email === email);
-    if (!contact) return;
-
-    renderDetailContent(contact);
-    highlightActiveContact(email);
-    
-    document.getElementById('contactDetail').style.display = 'block'; 
-}
-
-
-/**
- * Renders the inner HTML of the detail view.
- * @param {Object} contact 
- */
-function renderDetailContent(contact) {
-    let content = document.getElementById('contactDetailContent');
-    content.innerHTML = `
-        ${getDetailHeaderHTML(contact)}
-        <div class="contact-info-header">Contact Information</div>
-        ${getDetailBodyHTML(contact)}
-    `;
 }
 
 
@@ -93,12 +70,102 @@ function getDetailHeaderHTML(contact) {
         <div class="contact-big-initials" style="background-color: ${contact.color};">${contact.initials}</div>
         <div class="contact-name-section">
             <h2>${contact.name}</h2>
+            
+            <!-- Desktop Actions -->
             <div class="contact-actions">
                 <a href="#" onclick="editContact('${contact.email}')"><img class="action-icon" src="../assets/img/edit (1).png" alt="Edit">Edit</a>
                 <a href="#" onclick="deleteContact('${contact.email}')"><img class="action-icon" src="../assets/img/delete.svg" alt="Delete">Delete</a>
             </div>
         </div>
+    </div>
+    
+    <!-- Mobile Back Button -->
+    <img src="../assets/img/arrow-left-line.svg" class="mobile-back-btn" onclick="closeContactDetails()" alt="Back">
+
+    <!-- Mobile Options Button -->
+    <div class="mobile-options-btn" onclick="openMobileOptions('${contact.email}')">
+        <img src="../assets/img/more_vert.svg" alt="Options">
     </div>`;
+}
+
+/**
+ * Display the details of a specific contact.
+ * @param {string} email 
+ */
+function showContactDetails(email) {
+    let contact = contacts.find(c => c.email === email);
+    if (!contact) return;
+
+    renderDetailContent(contact);
+    highlightActiveContact(email);
+    
+    let detailView = document.getElementById('contactDetail');
+    detailView.style.display = 'block'; 
+
+    // Mobile View Toggle
+    if (window.innerWidth <= 1000) {
+        detailView.classList.add('show-mobile');
+        document.querySelector('.contacts-list-container').style.display = 'none'; // Hide list
+        document.querySelector('.btn-add-contact').style.display = 'none'; // Hide FAB
+    }
+}
+
+/**
+ * Closes the contact detail view on mobile.
+ */
+function closeContactDetails() {
+    let detailView = document.getElementById('contactDetail');
+    detailView.classList.remove('show-mobile');
+    
+    // Restore List View
+    document.querySelector('.contacts-list-container').style.display = 'flex'; 
+    document.querySelector('.btn-add-contact').style.display = 'flex'; // Show FAB
+    
+    // Clear selection
+    document.querySelectorAll('.contact-item.active').forEach(item => item.classList.remove('active'));
+}
+
+/**
+ * Opens the bottom sheet/options for mobile interaction.
+ * Uses the same logic as Board mobile menu if possible, or a simple implementation.
+ * For now, we will reuse the edit/delete modal or logic.
+ * Simple Approach: Just trigger standard edit/show edit modal directly? 
+ * Or show a small menu div.
+ */
+function openMobileOptions(email) {
+    // For simplicity/UX on small screens, let's just show a custom toast or small menu
+    // Actually, let's reuse the existing contact-actions if we styled them for mobile popup.
+    // But contact-actions is inside contact-name-section.
+    
+    // Let's create a temporary overlay menu
+    let optionsMenu = document.createElement('div');
+    optionsMenu.className = 'mobile-options-overlay'; // I need to style this or use existing classes
+    optionsMenu.style.position = 'fixed';
+    optionsMenu.style.bottom = '80px';
+    optionsMenu.style.right = '20px';
+    optionsMenu.style.background = 'white';
+    optionsMenu.style.padding = '10px';
+    optionsMenu.style.borderRadius = '10px 10px 0 10px';
+    optionsMenu.style.boxShadow = '0 0 10px rgba(0,0,0,0.2)';
+    optionsMenu.style.zIndex = '100';
+    optionsMenu.style.display = 'flex';
+    optionsMenu.style.flexDirection = 'column';
+    optionsMenu.style.gap = '10px';
+    
+    optionsMenu.innerHTML = `
+        <div style="padding: 8px; cursor: pointer;" onclick="editContact('${email}'); this.remove()">Edit</div>
+        <div style="padding: 8px; cursor: pointer; color: red;" onclick="deleteContact('${email}'); this.remove()">Delete</div>
+    `;
+    
+    // Remove if click outside
+    let backdrop = document.createElement('div');
+    backdrop.style.position = 'fixed';
+    backdrop.style.inset = '0';
+    backdrop.style.zIndex = '99';
+    backdrop.onclick = () => { optionsMenu.remove(); backdrop.remove(); };
+    
+    document.body.appendChild(backdrop);
+    document.body.appendChild(optionsMenu);
 }
 
 
