@@ -275,6 +275,7 @@
 
 
 /* Responsive */
+/* Responsive */
 @media (max-width: 1250px) {
     .dashboard-content {
         flex-direction: column;
@@ -282,8 +283,10 @@
     }
     .greeting-column {
         align-items: center; 
-        margin-top: 40px;
         text-align: center;
+        order: -1; /* Move Greeting above Metrics */
+        margin-bottom: 30px;
+        margin-top: 0;
     }
     .metrics-column {
         width: 100%;
@@ -294,13 +297,16 @@
 @media (max-width: 700px) {
     .metrics-row {
         flex-direction: column;
+        /* When rows become column, ensure full width */
+        width: 100%; 
     }
     .metric-card, .metric-card-small {
         width: 100%;
     }
     .summary-title-section {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center; /* Center Title */
+        text-align: center;
         gap: 15px;
     }
     .vertical-line {
@@ -309,19 +315,26 @@
 }
 /* Mobile Adaptation (< 480px) */
 @media (max-width: 480px) {
-    /* Reset Global Padding overrides if any */
-    .content-container {
-        padding-left: 16px; 
-        padding-right: 16px;
-        padding-bottom: 80px; /* Space for mobile menu */
-    }
-
+    /* ... existing content ... */
+    
     /* Header */
     .summary-title-section {
         margin-bottom: 24px;
         gap: 8px;
-        align-items: flex-start;
+        align-items: center; /* Center */
+        text-align: center;
     }
+
+    /* ... */
+    
+    /* Greeting Section */
+    .greeting-column {
+        margin-top: 0;
+        margin-bottom: 24px; /* Space before metrics */
+        text-align: center;
+        order: -1; /* Ensure order here too */
+    }
+}
 
     .summary-title-section h1 {
         font-size: 36px;

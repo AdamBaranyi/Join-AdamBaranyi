@@ -135,7 +135,7 @@ body {
     }
     .main-header {
         left: 0;
-        justify-content: space-between; 
+        justify-content: flex-end; /* Align icons to right */ 
         padding: 0 20px;
     }
     body {

@@ -3,10 +3,26 @@
     max-width: 1000px;
 }
 
+.simple-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
 .simple-page-content h1 {
     font-size: 61px;
     font-weight: 700;
-    margin-bottom: 40px;
+    margin: 0; /* margin-bottom handled by header */
+}
+
+.btn-back {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-back:hover {
+    transform: scale(1.1);
 }
 
 .simple-page-content h2 {
@@ -33,5 +49,11 @@
     }
     .simple-page-content h1 {
         font-size: 40px;
+    }
+}
+
+@media(max-width: 450px) {
+    .simple-page-content {
+        padding: 20px;
     }
 }

@@ -90,3 +90,10 @@
         gap: 10px;
     }
 }
+
+@media(max-width: 450px) {
+    /* Optional: further optimizations */
+    .help-content {
+         padding: 16px;
+    }
+}
