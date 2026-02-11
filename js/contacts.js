@@ -65,9 +65,10 @@ function generateContactHTML(contact) {
  * @returns {string} HTML
  */
 function getDetailHeaderHTML(contact) {
+    let initials = contact.initials || getInitials(contact.name);
     return `
     <div class="contact-header">
-        <div class="contact-big-initials" style="background-color: ${contact.color};">${contact.initials}</div>
+        <div class="contact-big-initials" style="background-color: ${contact.color};">${initials}</div>
         <div class="contact-name-section">
             <h2>${contact.name}</h2>
             
@@ -89,6 +90,21 @@ function getDetailHeaderHTML(contact) {
 }
 
 /**
+ * Renders the detail content (header and body).
+ * @param {Object} contact 
+ */
+function renderDetailContent(contact) {
+    let content = document.getElementById('contactDetailContent');
+    content.innerHTML = `
+        <div class="contact-details-wrapper">
+            ${getDetailHeaderHTML(contact)}
+            <div class="contact-info-header">Contact Information</div>
+            ${getDetailBodyHTML(contact)}
+        </div>
+    `;
+}
+
+/**
  * Display the details of a specific contact.
  * @param {string} email 
  */
@@ -96,7 +112,7 @@ function showContactDetails(email) {
     let contact = contacts.find(c => c.email === email);
     if (!contact) return;
 
-    renderDetailContent(contact);
+    renderDetailContent(contact); // CSS animation on children triggers automatically
     highlightActiveContact(email);
     
     let detailView = document.getElementById('contactDetail');
@@ -185,9 +201,11 @@ function getDetailBodyHTML(contact) {
  * @param {string} email 
  */
 function highlightActiveContact(email) {
+    let targetEmail = email.trim().toLowerCase();
     document.querySelectorAll('.contact-item').forEach(item => {
         item.classList.remove('active');
-        if(item.querySelector('.contact-email').innerText === email) {
+        let itemEmail = item.querySelector('.contact-email').innerText.trim().toLowerCase();
+        if (itemEmail === targetEmail) {
             item.classList.add('active');
         }
     });
