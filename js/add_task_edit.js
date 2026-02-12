@@ -11,39 +11,51 @@ function loadTaskForEdit(taskId) {
     if (!task) return;
 
     editingTaskId = taskId;
+    fillEditFormFields(task);
+    setEditTaskMetadata(task);
+    updateEditModeUI();
+}
 
-    // Fill Basic Fields
+
+/**
+ * Fills the form fields with task data.
+ * @param {Object} task 
+ */
+function fillEditFormFields(task) {
     document.getElementById('taskTitle').value = task.title;
     document.getElementById('taskDescription').value = task.description;
     document.getElementById('taskDueDate').value = task.dueDate;
     document.getElementById('taskCategory').value = task.category;
-    
-    // Set Priority
+}
+
+
+/**
+ * Sets metadata (priority, contacts, subtasks) for editing.
+ * @param {Object} task 
+ */
+function setEditTaskMetadata(task) {
     setPrio(task.priority);
-
-    // Set Assigned Contacts
-    selectedContacts = task.assignedTo || []; // Copy array
+    selectedContacts = task.assignedTo || [];
     renderSelectedBadges();
-    renderContactOptions(); // Re-render dropdown to show checkboxes
-
-    // Set Subtasks
-    subtasks = task.subtasks || []; // Copy array
+    renderContactOptions();
+    subtasks = task.subtasks || [];
     renderSubtasks();
+}
 
-    // Update UI for Edit Mode
+
+/**
+ * Updates the UI to reflect Edit Mode.
+ */
+function updateEditModeUI() {
     document.querySelector('#add-task-slide-in h1').innerText = 'Edit Task';
-    
     let submitBtn = document.querySelector('.btn-dark');
     submitBtn.innerHTML = `Ok <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12L9 16L19 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     
     document.querySelector('form').setAttribute('onsubmit', 'saveEditedTask(event)');
-    
-    // Hide Clear button in edit mode? Optional.
     document.querySelector('.btn-light').style.display = 'none';
-    
-    // Disable Category (User Story 6 Requirement)
     document.getElementById('taskCategory').disabled = true;
 }
+
 
 /**
  * Saves the edited task.
@@ -51,35 +63,48 @@ function loadTaskForEdit(taskId) {
  */
 async function saveEditedTask(event) {
     event.preventDefault();
-    let title = document.getElementById('taskTitle');
-    let date = document.getElementById('taskDueDate');
-    let category = document.getElementById('taskCategory');
+    let formElements = getFormElements();
 
-    resetErrors(title, date, category);
-    if (!validateTaskForm(title, date, category)) return;
+    resetErrors(formElements.title, formElements.date, formElements.category);
+    if (!validateTaskForm(formElements.title, formElements.date, formElements.category)) return;
 
-    // Determine the existing task object to update implies we shouldn't create a NEW object completely, 
-    // but preserving ID is key.
-    let updatedTask = {
+    let updatedTask = createUpdatedTaskObject(formElements);
+    await saveTask(updatedTask);
+    
+    handleTaskSuccess();
+    resetEditUI();
+}
+
+
+/**
+ * Retrieves form elements for validation and creation.
+ */
+function getFormElements() {
+    return {
+        title: document.getElementById('taskTitle'),
+        date: document.getElementById('taskDueDate'),
+        category: document.getElementById('taskCategory'),
+        description: document.getElementById('taskDescription')
+    };
+}
+
+
+/**
+ * Creates the updated task object.
+ * @param {Object} elems 
+ */
+function createUpdatedTaskObject(elems) {
+    return {
         id: editingTaskId,
-        title: title.value,
-        description: document.getElementById('taskDescription').value,
-        category: category.value,
-        dueDate: date.value,
+        title: elems.title.value,
+        description: elems.description.value,
+        category: elems.category.value,
+        dueDate: elems.date.value,
         priority: currentPrio,
         assignedTo: selectedContacts,
         subtasks: subtasks,
-        status: tasks.find(t => t.id === editingTaskId).status // Preserve status
+        status: tasks.find(t => t.id === editingTaskId).status
     };
-
-    await saveTask(updatedTask);
-    
-    // Success UI
-    handleTaskSuccess(); // This handles closing modal and refreshing board
-    
-    // Reset UI back to Add Task mode (done in clearForm or handling success?)
-    // handleTaskSuccess calls clearForm. We need to reset the UI structure there.
-    resetEditUI();
 }
 
 /**

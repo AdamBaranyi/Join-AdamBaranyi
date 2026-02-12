@@ -1,8 +1,7 @@
-/* --- MAIN LAYOUT --- */
 h1 {
-    font-size: 64px;
+    font-size: 73px; /* Standardize to match Board/Summary */
     font-weight: 700;
-    margin-bottom: 30px;
+    margin-bottom: 48px; /* Standardize margin */
 }
 
 .add-task-layout {

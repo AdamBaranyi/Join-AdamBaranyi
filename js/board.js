@@ -152,28 +152,31 @@ function removeHighlight(id) {
  */
 function drop(ev) {
     ev.preventDefault();
-    let target = ev.target.closest('.task-list');
+    cleanupDragVisuals();
     
-    // Remove rotation
+    let target = ev.target.closest('.task-list');
+    if (!target) return;
+
+    moveTo(currentDraggedElement, target.id);
+}
+
+
+/**
+ * Cleans up visual effects after dragging.
+ */
+function cleanupDragVisuals() {
     if (currentDraggedElement) {
         let card = document.getElementById(`task-${currentDraggedElement}`);
         if(card) card.classList.remove('dragging');
     }
     
-    // Clear highlights
-    if (lastHighlighted) {
-        removeHighlight(lastHighlighted);
-    }
-    // Deep clean to be safe
+    if (lastHighlighted) removeHighlight(lastHighlighted);
+
     ['todo', 'inprogress', 'awaitfeedback', 'done'].forEach(id => {
         let el = document.getElementById(id);
         if(el) el.classList.remove('drag-area-highlight');
     });
     lastHighlighted = null;
-    
-    if (!target) return;
-
-    moveTo(currentDraggedElement, target.id);
 }
 
 

@@ -265,18 +265,40 @@ function closeContactModal() {
  */
 function handleContactSubmit(event, mode, oldEmail = null) {
     event.preventDefault();
-    let name = document.getElementById('contactName').value;
-    let email = document.getElementById('contactEmail').value;
-    let phone = document.getElementById('contactPhone').value;
+    let name = document.getElementById('contactName');
+    let email = document.getElementById('contactEmail');
+    let phone = document.getElementById('contactPhone');
+
+    if (!validateContactForm(name, email, phone)) return;
 
     if (mode === 'create') {
-        createContact(name, email, phone);
+        createContact(name.value, email.value, phone.value);
     } else {
-        updateContact(oldEmail, name, email, phone);
+        updateContact(oldEmail, name.value, email.value, phone.value);
     }
     
     closeContactModal();
     renderContactList();
+}
+
+/**
+ * Validates contact form inputs.
+ * @param {HTMLElement} name 
+ * @param {HTMLElement} email 
+ * @param {HTMLElement} phone 
+ * @returns {boolean}
+ */
+function validateContactForm(name, email, phone) {
+    let isValid = true;
+    if (name.value.trim() === '') { name.classList.add('input-error'); isValid = false; }
+    if (email.value.trim() === '') { email.classList.add('input-error'); isValid = false; }
+    if (phone.value.trim() === '') { phone.classList.add('input-error'); isValid = false; }
+    
+    // Auto-remove error class on input
+    [name, email, phone].forEach(el => {
+        el.addEventListener('input', () => el.classList.remove('input-error'), {once: true});
+    });
+    return isValid;
 }
 
 

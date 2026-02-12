@@ -119,6 +119,7 @@
 .contacts-title-header h1 {
     font-size: 61px;
     font-weight: 700;
+    margin: 0; /* Reset margin for perfect alignment */
 }
 
 .blue-separator-vertical {
@@ -130,6 +131,7 @@
 .slogan {
     font-size: 27px;
     color: inherit;
+    margin: 0;
 }
 
 .contact-header {

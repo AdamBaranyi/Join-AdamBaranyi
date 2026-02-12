@@ -13,7 +13,7 @@
 }
 
 .summary-title-section h1 {
-    font-size: 61px;
+    font-size: 73px; /* Increased to match Board/Contacts H1 */
     font-weight: 700;
     margin-bottom: 0; 
 }
@@ -22,14 +22,15 @@
     font-size: 27px;
     color: var(--color-primary);
     font-weight: 400;
-    margin-left: 5px;
+    margin-left: 30px; /* More spacing */
 }
 
 .vertical-line {
     width: 3px;
-    height: 60px;
-    background-color: var(--color-secondary);
+    height: 70px; 
+    background-color: #29abe2 !important; /* Force color */
     border-radius: 2px;
+    display: block; /* Ensure display */
 }
 
 /* Dashboard Layout */
@@ -62,13 +63,13 @@
 }
 
 .greeting-time {
-    font-size: 47px;
+    font-size: 56px; /* Up from 47px */
     color: var(--color-primary);
     font-weight: 500;
 }
 
 .greeting-name {
-    font-size: 64px;
+    font-size: 80px; /* Up from 64px */
     color: var(--color-secondary);
     font-weight: 700;
 }
@@ -83,17 +84,17 @@
 .metric-card {
     background: var(--color-white);
     border-radius: 30px;
-    padding: 35px 40px; 
+    padding: 45px 50px; /* Increased padding */
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 30px; /* Increased gap */
     flex: 1;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.05); 
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s; 
-    min-width: 250px; /* Increased width significantly */
-    min-height: 170px; /* Kept original height */
+    min-width: 280px; /* Increased width */
+    min-height: 200px; /* Increased height */
 }
 
 .metric-card:hover {
@@ -102,13 +103,13 @@
 
 /* Icons within Cards */
 .icon-circle {
-    width: 70px;
-    height: 70px;
+    width: 80px; /* Increased from 70px */
+    height: 80px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px; 
+    font-size: 36px; /* Increased from 28px */
     color: white;
 }
 
@@ -127,14 +128,14 @@
 }
 
 .metric-text .number {
-    font-size: 64px;
+    font-size: 74px; /* Increased from 64px */
     font-weight: 600;
     line-height: 1;
     margin-bottom: 5px;
 }
 
 .metric-text .label {
-    font-size: 18px; 
+    font-size: 24px; /* Increased from 18px */
     color: var(--color-primary);
     text-align: center;
 }
@@ -144,6 +145,7 @@
     background-color: var(--color-white);
     justify-content: space-between; 
     padding: 30px 60px;
+    min-height: 200px; /* Consistent height */
 }
 
 .icon-urgent {
@@ -171,13 +173,13 @@
 }
 
 .date-bold {
-    font-size: 23px;
+    font-size: 28px; /* Up from 23px */
     font-weight: 700;
     color: #2A3647;
 }
 
 .label-small {
-    font-size: 16px;
+    font-size: 20px; /* Up from 16px */
     color: #2A3647;
 }
 
@@ -186,7 +188,7 @@
     flex: 1;
     background: var(--color-white);
     border-radius: 45px;
-    padding: 30px 20px;
+    padding: 35px 25px; /* Increased padding */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -195,8 +197,8 @@
     box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
-    min-width: 200px; /* Increased width */
-    min-height: 170px; 
+    min-width: 220px; 
+    min-height: 200px; /* Consistent height */
 }
 
 .metric-card-small:hover {
@@ -210,13 +212,13 @@
 }
 
 .metric-card-small .number {
-    font-size: 64px;
+    font-size: 74px; /* Up from 64px */
     font-weight: 600;
     margin-bottom: 10px;
 }
 
 .metric-card-small .label {
-    font-size: 19px;
+    font-size: 24px; /* Up from 19px */
     color: var(--color-primary);
     line-height: 1.2;
 }
